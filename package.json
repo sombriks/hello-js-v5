@@ -1,0 +1,26 @@
+{
+  "name": "hello-js-v5",
+  "version": "1.0.0",
+  "description": "Repo and material for HelloJs 5th edition",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "docute ./docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://sombriks@github.com/sombriks/hello-js-v5.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sombriks/hello-js-v5/issues"
+  },
+  "homepage": "https://github.com/sombriks/hello-js-v5#readme",
+  "devDependencies": {
+    "docute-cli": "^0.6.0"
+  }
+}
