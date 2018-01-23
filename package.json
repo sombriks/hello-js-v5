@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "dev": "docute ./docs"
+    "dev": "docute -o -w ./docs"
   },
   "repository": {
     "type": "git",
