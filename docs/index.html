@@ -1,28 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <link rel="icon" type="image/png" href="img/hello-js.svg.png" />
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-  <title>Hello JS</title>
-  <link rel="stylesheet" href="https://unpkg.com/docute@3/dist/docute.css">
-</head>
-<body>
-  <div id="app"></div>
-  <script src="https://unpkg.com/docute@3/dist/docute.js"></script>
-  <script>
-    docute.init({
-      nav:[
-        {title:"Início", path:"/"},
-        {title:"Parte 1", path:"/parte-1"},
-        {title:"Parte 2", path:"/parte-2"},
-        {title:"Parte 3", path:"/parte-3"},
-        {title:"Parte 4", path:"/parte-4"},
-        {title:"Parte 5", path:"/parte-5"},
-        {title:"Parte 6", path:"/parte-6"},
-      ]
-    })
-  </script>
-</body>
+
+  <head>
+    <link
+      rel="icon"
+      type="image/png"
+      href="img/hello-js.svg.png"
+    />
+    <meta charset="utf-8">
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <title>Hello JS</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/docute@3/dist/docute.css"
+    >
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/docute@3/dist/docute.js"></script>
+    <script src="https://unpkg.com/docute/plugins/docsearch.js"></script>
+    <script src="https://unpkg.com/docute/plugins/disqus.js"></script>
+    <script>
+      docute.init({
+        nav: [
+          { title: "Início", path: "/" },
+          { title: "Parte 1", path: "/parte-1" },
+          { title: "Parte 2", path: "/parte-2" },
+          { title: "Parte 3", path: "/parte-3" },
+          { title: "Parte 4", path: "/parte-4" },
+          { title: "Parte 5", path: "/parte-5" },
+          { title: "Parte 6", path: "/parte-6" },
+        ],
+        plugins: [
+          docsearch({
+            url: "https://sombriks.github.io/hello-js-v5",
+            apiKey: "b06f33523a734ab84c3d9da5ee42dd70",
+            indexName: "hellojs",
+          }),
+          disqus({
+            shortname:"https://sombriks.github.io/hello-js-v5"
+          })
+        ]
+      })
+    </script>
+  </body>
+
 </html>
