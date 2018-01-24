@@ -21,6 +21,10 @@ interface com o usuário.
 Os módulos abaixo são o material de estudo e exercício necessários para ir
 *from zero to hero* no desenvolvimento de soluções completas em javascript.
 
+Observe que o desafio é **acumulativo**. O que você vê na parte 1, vai precisar 
+na parte 2 *além* do que será visto na própria parte 2. Na parte 3, as 
+habilidades exercitadas nas partes 1 e 2 serão requisitadas. E por aí vai.
+
 - [Parte 1](/parte-1) (4h)
   - GIT
   - GitHub

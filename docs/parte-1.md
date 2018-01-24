@@ -1,5 +1,7 @@
 # Parte 1
 
+Precisamos, para começar, dominar as ferramentas de trabalho.
+
 ## Git
 
 * Controle de versionamento de código
