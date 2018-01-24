@@ -1,6 +1,7 @@
 {
   "name": "hello-js-v5",
   "version": "1.0.0",
+  "private": true,
   "description": "Repo and material for HelloJs 5th edition",
   "main": "index.js",
   "directories": {

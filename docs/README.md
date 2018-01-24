@@ -1,25 +1,25 @@
 # Início
 
-Bem vindo ao Hello-JS. 
+Bem vindo ao Hello-JS.
 
 ## Quem Somos
 
-O Hello-JS é uma iniciativa tocada por [sombriks](https://sombriks.com.br) e 
+O Hello-JS é uma iniciativa tocada por [sombriks](https://sombriks.com.br) e
 por [yuriploc](https://twitter.com/yuriploc).
- 
+
 ## Objetivo
 
-Esta iniciativa pretende auxiliar você a começar na 
-programação em javascript em uma realidade *full stack*, isto é, capaz de 
-oferecer uma solução completa para um problema propsto.
+Essa iniciativa pretende auxiliar você a começar na
+programação em javascript em uma realidade *full stack*, isto é, capaz de
+oferecer uma solução completa para um problema proposto.
 
-E o que é uma solução completa? É base de dados, servidor de aplicação e 
+E o que é uma solução completa? É base de dados, servidor de aplicação e
 interface com o usuário.
 
 ## Índice
 
 Os módulos abaixo são o material de estudo e exercício necessários para ir
-*from zero to hero* no desenvolvimento de soluções completas em javascript.   
+*from zero to hero* no desenvolvimento de soluções completas em javascript.
 
 - [Parte 1](/parte-1) (4h)
   - GIT
