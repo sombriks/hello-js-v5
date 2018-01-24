@@ -116,13 +116,54 @@ Por que o npm/package.json é bacana?
 
 ### Variáveis
 
-```javascript
+Nada revolucionário, vocês já devem conhecer:
 
+```javascript
+a = 2 // crusty but works
+var b = 3 // old fashined and scope concerns
+let c = 4 // nice, scoped, fair
+const d = 5 // the functional way
 ```
+
+Nota: as variáveis 'a' e 'b' ficam no escopo global ou no escopo da função. 
+As variáveis c e d vão para o escopo do bloco sempre, seja bloco de função 
+ou bloco de controle.
+
+### Tipos de dados
+
+- Números (ex. 2, 1.5, 3000)
+- Strings (ex. "azul", 'amarelo', `verde`)
+- Data (ex. new Date())
+- Funções (ex. const x = a => 2 + a, function (z) { return z*z } )
+- Listas (ex. [], [1,2,3], ["a",'b', new Date(), 4])
+- Mapas (ex. {}, { a: 1, b: "2" })
+- Regex (ex. /.* de .* de [0-9]+/ )
+- Classes (ex. class Rectangle extends Shape { } )
 
 ### Estruturas de controle
 
 ```javascript
+// switch. evite. 
+switch(x){
+  case 1:
+    console.log("got one");
+    break;
+  case "deer":
+    console.log("got baaaa!!!");
+    break;
+  default:
+    return "end!";
+}
+
+// if.
+if(a > 1) console.log("we have a big number")
+
+if(b == 3) {
+  console.log("Too many instructions")
+  console.log("Too long words")
+}
+
+// 
 
 ```
 
