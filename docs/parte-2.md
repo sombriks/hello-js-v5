@@ -113,6 +113,9 @@ Por que o npm/package.json é bacana?
 
 - Criada em 1995 por Brendan Eich, então engenheiro na Netscape
 - Dinâmica, funcional, baseada em objetos
+- Os ponto-e-vírgula são opcionais! :joy: :joy: :joy:
+
+Vamos tratar agora do básico da linguagem. **Apertem os cintos!**
 
 ### Variáveis
 
@@ -238,6 +241,16 @@ m2.c = 3 // {a:1,b:2,c:3}
 
 for(let k in m2) console.log("%s: %s", k, x)
 
+// tem isso aqui também. detalhamos adiante.
+
+const api = {
+  addr:"https://foo.bar.com",
+  list(){
+    return [1,2,3]
+  },
+  key:"XDFGgjhJFffgdg", 
+}
+
 ```
 
 ### Funções
@@ -271,6 +284,12 @@ const b = c => c * c
 b(4)
 // imprime 16
 
+// funções dentro de mapas tem direito a sintax expecial:
+
+const obj ={
+  myfun(){ return "something" }
+}
+
 // tem ainda isso aqui pra debatermos:
 
 const x = _ => ({a:1, b:2})
@@ -279,7 +298,7 @@ const x = _ => ({a:1, b:2})
 
 ### Desestruturantes 
 
-- Úteis
+- Muito úteis, acreditem.
 
 ```javascript
 let a, b, c = [1,2,3,4]
@@ -302,14 +321,66 @@ const y = param => param.a * param.b * param.c
 
 ### Classes
 
-```javascript
+- Tem que ter, então tem.
 
+```javascript
+class Shape {
+
+    constructor (id, x, y) {
+        this.id = id
+        this.move(x, y)
+    }
+    
+    move (x, y) {
+        this.x = x
+        this.y = y
+    }
+}
 ```
 
-### Herança
+- Membros privados são na base da amizade
+- getter / setter no estilo de uma linguagem acolá ;-)
 
 ```javascript
+class Point {
 
+  constructor(x,y) {
+    this._x = x
+    this._y = y
+  }
+
+  get coords () { 
+    return ({
+      x:this._x, 
+      y:this._y
+    }) 
+  }
+
+  set coords({x,y}){
+    this._x = x
+    this._y = y
+  }
+
+  get x () { return _x }
+  set x (val) {this._x = val }
+
+  get y () { return _x }
+  set y (val) {this._x = val }
+}
+// let p = new Point(1,2)
+// p.x // 1
+// p.y = 3
+// p.coords // {x:1,y:3}
+```
+
+- Herança é parecido com a de outras linguagens
+
+```javascript
+class Square extends Shape {
+  constructor(id,l){
+    super(id,l,l)
+  }
+}
 ```
 
 Mais detalhes [aqui](http://es6-features.org)
@@ -318,3 +389,7 @@ Mais detalhes [aqui](http://es6-features.org)
 
 1. Crie um repositório no github chamado **hello-js-se05-ep02**
 2. Faça o chekout local deste repositório
+3. Crie um script chamado index.js dentro deste projeto
+4. Neste script faça um código que teste se o valor passado por parâmetro para
+   o script é par ou ímpar. Se for par, deve imprimir "PAR". Caso contrário, 
+   deve imprimir "ÌMPAR"
