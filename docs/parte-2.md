@@ -140,10 +140,13 @@ ou bloco de controle.
 - Regex (ex. /.* de .* de [0-9]+/ )
 - Classes (ex. class Rectangle extends Shape { } )
 
+Aí tem o **null** e temo **undefined**.
+Ambos indicam que a variável não aponta valor. mais sobre eles adiante.
+
 ### Estruturas de controle
 
 ```javascript
-// switch. evite. 
+// switch. 
 switch(x){
   case 1:
     console.log("got one");
@@ -163,31 +166,137 @@ if(b == 3) {
   console.log("Too long words")
 }
 
-// 
+// observe que "", 0, null, undefined e false se equivalem nas estruturas de decisão
 
-```
+let a = 0
 
-### Funções
+if(a) console.log("it never happens!")
 
-```javascript
+// for.
+
+for(let k = 0; k < 10; k++) console.log(`eu valho ${k}`)
+
+// while
+
+let i = 10
+
+while(i-->0) console.log("Eu valho %s", i)
+
+// tem o do-while também
+
+let j = 0;
+do {
+  console.log("eu vajo %s", j)
+  j = j + 1
+} while(j < 10)
 
 ```
 
 ### Listas
 
 ```javascript
+// lista vazia
+let x = []
+
+// lista com uns valores
+let y = [1,2,3]
+
+// adicionar no final da lista
+y.push(4)
+
+// adicionar no começo da lista
+y.unshift(0)
+
+// remover do final da lista
+y.pop() // retorna 4
+
+// remover do começo da lista
+y.shift() // retorna 0
+
+// remover de uma posição específica
+y = y.splice(1,1) // [1, 3]
+// adicionar
+y = y.splice(1,0,"x") // [1, "x", 3]
+// map, filter, sort
+y = y.map(e => "a" + e) // ['a1','ax','a3']
+x = [1,2,3,4,5,6,7,8,9]
+x = x.filter(e => e > 5) // [6, 7, 8, 9]
+x = x.sort((a,b) => b - a ) // [9, 8, 7, 6]
+
+for(let k in x) console.log("%s: %s", k, x)
 
 ```
 
 ### Mapas
 
 ```javascript
+let m1 = {} // mapa vazio
+m1.x = 2 // {x: 2}
+
+let m2 = {a:1,b:2}
+m2.c = 3 // {a:1,b:2,c:3}
+
+for(let k in m2) console.log("%s: %s", k, x)
+
+```
+
+### Funções
+
+```javascript
+// clássica, contexto próprio
+function a (b, c, d) {
+  console.log(c)
+  return  b + d
+}
+
+// happy arrow, nada de bagunçar contexto
+const a = (b, c, d) => {
+  console.log(c)
+  return  b + d
+}
+
+// funções que tenham uma só linha usam esse corpo como o prórpio retorno
+
+const b = (c,d) => {
+  return c + d
+}
+
+const e = (f,g) => f + g
+
+// as duas funções acima se equivalem
+
+// funções com um parâmetro só dispensam os parênteses
+
+const b = c => c * c
+b(4)
+// imprime 16
+
+// tem ainda isso aqui pra debatermos:
+
+const x = _ => ({a:1, b:2})
 
 ```
 
 ### Desestruturantes 
 
+- Úteis
+
 ```javascript
+let a, b, c = [1,2,3,4]
+
+[a,b] = c // a=1, b=2
+
+let x1 = "cool"
+let x2 = "well"
+let x3 = {x1,x2} // {x1:"cool", x2:"well"}
+
+let head = 1
+let tail = [2,3,4]
+let list = [head, ...tail] // [1,2,3,4]
+
+const x = ({a,b,c}) => a * b * c
+// equivale a 
+const y = param => param.a * param.b * param.c
 
 ```
 
