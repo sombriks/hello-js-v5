@@ -176,17 +176,104 @@ Definido o esquema de dados, podemos trabalhar com os mesmos com 4 operações:
 - delete
 - select
 
+Crie as tabelas abaixo usando o **dbbrowser** para podermos treinar as operações
+
+```sql
+-- script-7.sql
+create table jogador (
+  idjogador integer not null primary key autoincrement,
+  numerojogador integer not null default 11,
+  nomejogador varchar (255) not null
+);
+
+create table equipe (
+  idequipe integer not null primary key autoincrement,
+  nomeequipe varchar (255) not null 
+);
+
+create table escalacao (
+
+  idjogador integer not null unique,
+  idequipe integer not null,
+
+  foreign key (idjogador) references jogador(idjogador)
+  foreign key (idequipe) references equipe(idequipe)
+
+  primary key (idjogador, idequipe)
+);
+```
+
+
 ### Insert 
 
 ```sql
-insert into pessoa (nomepessoa, telefonepessoa) values ('Joe', '12345678');
+-- script-8.sql
+insert into jogador (numerojogador,nomejogador) values (10,'Sócrates');
+insert into jogador (numerojogador,nomejogador) values (1,'Arquimedes');
+insert into jogador (numerojogador,nomejogador) values (7,'Aristóteles');
+insert into jogador (numerojogador,nomejogador) values (9,'Platão');
+insert into jogador (numerojogador,nomejogador) values (4,'Heráclito');
+insert into jogador (numerojogador,nomejogador) values (11,'Kant');
+insert into jogador (numerojogador,nomejogador) values (8,'Descartes');
+insert into jogador (numerojogador,nomejogador) values (8,'Nietzsche');
+insert into jogador (numerojogador,nomejogador) values (9,'Schopenhauer');
+insert into jogador (numerojogador,nomejogador) values (5,'Hegel');
+insert into jogador (numerojogador,nomejogador) values (3,'Hume');
+insert into jogador (numerojogador,nomejogador) values (2,'Hobbes');
+insert into jogador (numerojogador,nomejogador) values (3,'Spinoza');
+insert into jogador (numerojogador,nomejogador) values (3,'Heidegger');
+insert into jogador (numerojogador,nomejogador) values (3,'Sêneca');
+
+insert into equipe (nomeequipe) values ('Penso Logo Existo');
+insert into equipe (nomeequipe) values ('Só Sei que Nada Sei');
+insert into equipe (nomeequipe) values ('Vontade de Potência');
+
+insert into escalacao (idjogador,idequipe) values (1,1);
+insert into escalacao (idjogador,idequipe) values (2,1);
+insert into escalacao (idjogador,idequipe) values (3,1);
+insert into escalacao (idjogador,idequipe) values (4,1);
+insert into escalacao (idjogador,idequipe) values (5,1);
+insert into escalacao (idjogador,idequipe) values (6,2);
+insert into escalacao (idjogador,idequipe) values (7,2);
+insert into escalacao (idjogador,idequipe) values (8,2);
+insert into escalacao (idjogador,idequipe) values (9,2);
+insert into escalacao (idjogador,idequipe) values (10,2);
+insert into escalacao (idjogador,idequipe) values (11,3);
+insert into escalacao (idjogador,idequipe) values (12,3);
+insert into escalacao (idjogador,idequipe) values (13,3);
+insert into escalacao (idjogador,idequipe) values (14,3);
+insert into escalacao (idjogador,idequipe) values (15,3);
 ```
+
+- Insert cria *tuplas* no banco (linhas na tabela)
+- Como as chaves primárias são automáticas, não épreciso informá-las
+- **ATENÇÃO** execute o scprit só uma vez. Evite duplicar os dados ;-)
+- Descubra como ver os dados no **dbbrowser**
+
+### Update
+
+```sql
+-- script-9.sql
+update equipe set nomeequipe = 'Alegoria da caverna' where idequipe = 3;
+```
+
+- Update altera registros
+- É uma instrução destrutiva (**cuidado com os updates sem where!**) 
+- Preferível usar a chave primária nos updates sempre que possível
+
+### Delete
+
+```sql
+-- script-10.sql
+delete from escalacao where idjogador = 4;
+```
+
 
 ## knex.js
 
 ## Exercícios Node.js + SQL
 
-1. Crie no github o projeto **hello-js-se05-ep04** e dê checkout local
+1. Crie no github o projeto **hello-js-seVV-ep04** e dê checkout local
 2. Inicialize o projeto npm e instale o knex e o sqlite3 como dependências
 3. Dentro do projeto dele crie o arquivo **esquema-inicial.sql**
 4. Use este arquivo sql para definir uma tabela chamada **contato**
