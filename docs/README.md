@@ -36,19 +36,20 @@ habilidades exercitadas nas partes 1 e 2 serão requisitadas. E por aí vai.
   - npm / package.json
   - A linguagem Javascript
   - Exercícios básicos de Javascript
-- [Parte 3](/parte-3) (8h)
+- [Parte 3](/parte-3) (4h)
   - Express.js
   - Axios
   - Exercícios de requisição à API's
+- [Parte 4](/parte-4) (4h)   
   - SQLite / dbbrowser
   - SQL
   - knex.js
   - Exercícios Node.js + SQL
-- [Parte 4](/parte-4) (4h)
+- [Parte 5](/parte-5) (4h)
   - Knex migrations
   - Combinando knex, knex migrations e express
   - Exercício
-- [Parte 5](/parte-5) (4h)
+- [Parte 6](/parte-6) (4h)
   - Arquivos estáticos com express
   - HTML
   - CSS
@@ -58,7 +59,7 @@ habilidades exercitadas nas partes 1 e 2 serão requisitadas. E por aí vai.
   - Exercício
   - Axios client-side
   - Exercício axios client-side chamando server-side
-- [Parte 6](/parte-6) (8h)
+- [Parte 7](/parte-7) (4h)
   - Browserify
   - Projeto fullstack com browserify
   - Exercício de build com browserify
@@ -67,6 +68,7 @@ habilidades exercitadas nas partes 1 e 2 serão requisitadas. E por aí vai.
   - Exercício protótipo fullstack
   - Projeto client-side com SPA (single page application)
   - Render function e single file components
+- [Parte 8](/parte-8) (4h)  
   - Exercício SFC + SPA com backend express+knex
   - Conceitos de desenvolvimento fullstack
   - Padrões de projeto em Javascript

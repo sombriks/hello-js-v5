@@ -38,14 +38,48 @@
           { title: "Parte 4", path: "/parte-4" },
           { title: "Parte 5", path: "/parte-5" },
           { title: "Parte 6", path: "/parte-6" },
+          { title: "Parte 7", path: "/parte-7" },
+          { title: "Parte 8", path: "/parte-8" },
+        ],
+        icons: [
+          {
+            icon: 'twitter',
+            label: 'Sombriks',
+            link: 'https://twitter.com/sombriks'
+          },
+          {
+            icon: 'twitter',
+            label: 'Yuri',
+            link: 'https://twitter.com/yuriploc'
+          },
+          {
+            icon: 'github',
+            label: 'Contribute on GitHub',
+            link: 'https://github.com/sombriks/hello-js-v5'
+          }
         ],
         plugins: [
           disqus({
-            shortname:"https-sombriks-github-io-hello-js-v5"
+            shortname: "https-sombriks-github-io-hello-js-v5"
           })
         ]
       })
     </script>
+    <!-- Google Analytics -->
+    <script>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
+      ga('create', 'UA-37990292-21', 'auto');
+      ga('send', 'pageview');
+      docute.router.afterEach(function (to) {
+        ga('set', 'page', to.fullPath);
+        ga('send', 'pageview');
+      });
+    </script>
+    <script
+      async
+      src='https://www.google-analytics.com/analytics.js'
+    ></script>
+      <!-- End Google Analytics -->
   </body>
 
 </html>

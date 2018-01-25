@@ -8,7 +8,7 @@ Precisamos, para começar, dominar as ferramentas mais básicas de trabalho.
 * Distribuído (os tais remotes)
 * Árvore? Galhos?
 
-Workflow no *happy path*:
+### Workflow no *happy path*:
 
 ```bash
 # recuperar todo o trabalho contido no servidor remoto
@@ -20,6 +20,8 @@ git push
 # and go home
 ```
 
+### Configuração inicial de identidade
+
 Importante, mas é daquelas coisas que só se faz uma vez e esquece:
 
 ```bash
@@ -27,12 +29,16 @@ git config --global user.name Fulano
 git config --global user.email fulano@gmail.com
 ```
 
+### Comodidade na autenticação
+
 Se a máquina for pessoal, salve sua senha.
 
 ```bash
 # editores ou IDE's mais safas terão acesso automático aos repositórios agora
 git config --global credential.helper store
 ```
+
+### Os remotes
 
 Importante saber gerenciar as árvores remotas:
 
@@ -58,6 +64,8 @@ Tem novidade aí?
 ```bash
 git fetch origin --prune
 ```
+
+### Os galhos (branches)
 
 Então vamos trabalhar. Atualizando o branch `master` do servidor para nossa máquina
 
@@ -87,6 +95,8 @@ Resumo das alterações?
 git status
 git diff -w
 ```
+
+### Commit e push
 
 Tudo certo? Vamos commitar (local)
 

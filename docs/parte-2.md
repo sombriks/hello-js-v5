@@ -8,7 +8,7 @@ Precisamos dominar a linguagem e as ferramentas de configuração de projeto.
   de internet.
 - Programação assíncrona (callback/promise)
 
-Modo REPL (Read-Eval-Print Loop):
+### Modo REPL (Read-Eval-Print Loop):
 
 ```bash
 node
@@ -18,14 +18,14 @@ undefined
 >
 ```
 
-Modo script:
+### Modo script:
 
 ```bash
 echo "console.log('hello.')" > hello.js
 node hello.js
 hello.
 ```
-Passando parâmetros:
+### Passando parâmetros:
 
 ```javascript
 // parameters.js
@@ -44,7 +44,7 @@ node parameters.js Yuri
 Hello, Yuri!
 ```
 
-Usando variáveis de ambiente:
+### Usando variáveis de ambiente:
 
 ```javascript
 // envparams.js
@@ -65,7 +65,7 @@ FOO: hello, BAR: world!
 Nota: no windows dá problema definir variáveis assim, mas solucionamos isso num
 futuro próximo.
 
-Definindo e usando um módulo:
+### Definindo e usando um módulo:
 
 ```javascript
 // lib1.js
@@ -90,6 +90,8 @@ processo. Organização. Procedimentos de trabalho.
 
 Além do git, que nos salva na hora de registrar as evoluções da solução, é 
 preciso uma ferramenta para organizar o projeto e suasdependências.
+
+### Criando um projeto npm
 
 Projetos em javascript podem ser gerenciados de modo eficiente com o **npm**.
 
@@ -127,6 +129,8 @@ index.js node_modules package.json
 
 **IMPORTANTE** evite adicionar a node_modules no controle de versão (no git).
 
+### Ignorando a node_modules com o .gitignore
+
 Para evitar isso, crie um arquivo chamado **.gitignore** dentro da pasta do 
 projeto e adicione uma linha contando o nome *node_modules*
 
@@ -134,6 +138,8 @@ projeto e adicione uma linha contando o nome *node_modules*
 echo node_modules > .gitignore
 # ou abrir com um editor o arquivo .gitignore e escrever node_modules
 ```
+
+### Usando módulos do registro npm
 
 Usar um módulo é parecido com o que vimos anteriormente, exceto que não temos 
 que nos preocupar com o caminho até o módulo. O node faz a busca por nós:
@@ -143,6 +149,7 @@ que nos preocupar com o caminho até o módulo. O node faz a busca por nós:
 const CryptoJS = require("crypto-js") // o node acha ele sozinho
 module.exports = {
   gibberish (word){
+    // https://stackoverflow.com/questions/11889329/word-array-to-string
     return CryptoJS.SHA256(word).toString(CryptoJS.enc.Base64)
   }
 }
@@ -451,3 +458,4 @@ Mais detalhes [aqui](http://es6-features.org)
 8. Vocẽ deve buscar as formas de uso dos algoritmos na documentação da 
    biblioteca [crypto-js](https://github.com/brix/crypto-js)
 9. Comite este segundo script também e dê push para o seu github.
+10. Se tiver esquecido de ignorar o node_modules não ganha doce!
