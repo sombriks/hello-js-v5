@@ -188,11 +188,11 @@ ou bloco de controle.
 ### Tipos de dados
 
 - Números (ex. 2, 1.5, 3000)
-- Strings (ex. "azul", 'amarelo', `verde`)
+- Strings (ex. "azul", 'amarelo', \`verde\`, \`azul ${55}\`)
 - Data (ex. new Date())
 - Funções (ex. const x = a => 2 + a, function (z) { return z*z } )
 - Listas (ex. [], [1,2,3], ["a",'b', new Date(), 4])
-- Mapas (ex. {}, { a: 1, b: "2" })
+- Mapas / Objetos literais (ex. {}, { a: 1, b: "2" })
 - Regex (ex. /.* de .* de [0-9]+/ )
 - Classes (ex. class Rectangle extends Shape { } )
 

@@ -89,6 +89,7 @@ app.listen(3000)
 console.log("server online!")
 ```
 
+- Lembre-se de terminar a execução anterior para rodar o script novo
 - Agora visitar http://localhost:3000/hello?name=Joe dá erro
 - Visite o endereço http://localhost:3000/hello/1?name=Joe
 - Ou o endereço http://localhost:3000/hello/2?name=Joe
@@ -102,6 +103,50 @@ deles no futuro.
 
 - Simples e popular
 - Dobradinha lá no futuro com o [vue.js](https://vuejs.org/) 
+
+### Instalando
+
+Instale usando o npm:
+
+```bash
+# você está na pasta do projeto, certo?
+npm install axios --save 
+touch index2.js
+```
+
+### Uso básico:
+
+```javascript
+// index2.js
+const axios = require("axios")
+
+const url = "https://api.github.com/search/repositories?q=axios"
+
+axios.get(url).then(ret => console.log(ret.data))
+```
+
+- Chame *node index2.js* no console
+- Congratulations, você consumiu uma api de serviço!
+
+### Definindo uma baseURL
+
+- Modifique o index2.js
+
+```javascript
+// index2.js
+const axios = require("axios")
+
+const baseURL = "https://api.github.com"
+
+const api = axios.create({ baseURL })
+
+const params = { q : "axios" }
+
+api.get("/search/repositories", { params }).then(ret => console.log(ret.data))
+```
+
+- Mate o processo no console e chame novamente (chato ne? tem solução adiante)
+- A documentação completa do axios está [aqui](https://github.com/axios/axios)
 
 ## Exercícios de requisição à API's
 
