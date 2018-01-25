@@ -1,6 +1,6 @@
 # Parte 3
 
-Precisamos entender como ouvir requisições http com o express e como 
+Precisamos entender como ouvir requisições http com o express e como
 fazê-las com o axios.
 
 ## Express.js
@@ -13,11 +13,11 @@ fazê-las com o axios.
 ### Instalando
 
 ```bash
-mkdir hello-js-se05-ep03
-cd hello-js-se05-ep03
+mkdir hello-js-seVV-ep03
+cd hello-js-seVV-ep03
 npm init -y
 npm install express --save
-touch index.js  
+touch index.js
 ```
 
 ### Hello World express
@@ -93,16 +93,16 @@ console.log("server online!")
 - Agora visitar http://localhost:3000/hello?name=Joe dá erro
 - Visite o endereço http://localhost:3000/hello/1?name=Joe
 - Ou o endereço http://localhost:3000/hello/2?name=Joe
-- Diferente do query, temos certa segurança sobre que variáveis estarão 
+- Diferente do query, temos certa segurança sobre que variáveis estarão
   presentes dentro do params.
 
-Além do app.get, tem outros verbos http que o express entende, mas trataremos 
+Além do app.get, tem outros verbos http que o express entende, mas trataremos
 deles no futuro.
 
 ## Axios
 
 - Simples e popular
-- Dobradinha lá no futuro com o [vue.js](https://vuejs.org/) 
+- Dobradinha lá no futuro com o [vue.js](https://vuejs.org/)
 
 ### Instalando
 
@@ -110,7 +110,7 @@ Instale usando o npm:
 
 ```bash
 # você está na pasta do projeto, certo?
-npm install axios --save 
+npm install axios --save
 touch index2.js
 ```
 
@@ -150,9 +150,9 @@ api.get("/search/repositories", { params }).then(ret => console.log(ret.data))
 
 ## Exercícios de requisição à API's
 
-1. Crie o projeto hello-js-se05-ep03 no seu github e faça o clone dele local
+1. Crie o projeto hello-js-seVV-ep03 no seu github e faça o clone dele local
 2. Dê init no projeto npm dentro da pasta do repositório
-3. Instale no projeto o **express** e o **axios** como dependências. 
+3. Instale no projeto o **express** e o **axios** como dependências.
    Não esquecer do --save
 4. Abra a [documentação da api do github](https://developer.github.com/v3/)
 5. Descubra como listar os seguidores de um determinado usuário
