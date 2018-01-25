@@ -7,7 +7,96 @@ fazê-las com o axios.
 
 - O padrão *de facto* de como cuidar de requisições em diferentes verbos HTTP
 - Modular e cheio dos plugins
+- Uma *grande quantidade* de projetos derivados
+  - Mas se entender o express, entende todos!
 
+### Instalando
+
+```bash
+mkdir hello-js-se05-ep03
+cd hello-js-se05-ep03
+npm init -y
+npm install express --save
+touch index.js  
+```
+
+### Hello World express
+
+```javascript
+// index.js
+const express = require("express")
+const app = express()
+
+app.get("/hello", (req, res) => {
+  console.log("hello from the other side!")
+  res.send("Hello, world!!!")
+})
+
+app.listen(3000)
+console.log("server online!")
+```
+
+No console chame seu script:
+
+```bash
+node index.js
+```
+
+Dessa ele não termina, percebe?
+
+- Abra o navegador de internet
+- Visite http://localhost:3000/hello
+
+### Parâmetros de url
+
+Modifique o index.js:
+
+```javascript
+// index.js
+const express = require("express")
+const app = express()
+
+app.get("/hello", (req, res) => {
+  console.log(req.query)
+  res.send("Hello, %s!!!" + req.query.name)
+})
+
+app.listen(3000)
+console.log("server online!")
+```
+
+- Visite http://localhost:3000/hello?name=Joe
+- Não aconteceu o que era esperado?
+  - Volte no console
+  - Mande um CTRL+C
+  - Chame o script novamente
+
+### Parâmetros de caminho (path parameters)
+
+Modifique o index.js mais uma vez:
+
+```javascript
+// index.js
+const express = require("express")
+const app = express()
+
+app.get("/hello/:id", (req, res) => {
+  console.log(req.params)
+  res.send(`Hello, ${req.query.name}!!!, id=${req.params.id}`)
+})
+
+app.listen(3000)
+console.log("server online!")
+```
+
+- Agora visitar http://localhost:3000/hello?name=Joe dá erro
+- Visite o endereço http://localhost:3000/hello/1?name=Joe
+- Ou o endereço http://localhost:3000/hello/2?name=Joe
+- Diferente do query, temos certa segurança sobre que variáveis estarão 
+  presentes dentro do params.
+
+Além do app.get, tem outros verbos http que o express entende, mas trataremos 
+deles no futuro.
 
 ## Axios
 
@@ -25,3 +114,4 @@ fazê-las com o axios.
 6. Crie um script chamado **index.js** e dê require no express e no axios
 7. Faça uma rota GET no express que atenda em **/seguidores**
 8. Esta rota deverá exibir no navegador o retorno da consulta à API do github
+9. Comite o script e faça push para o github. não esquecer do .gitignore
