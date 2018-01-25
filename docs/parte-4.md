@@ -121,7 +121,7 @@ Uma forma de ler isso é: *existem vários modelosde carro, mas um carro possui*
 Outro Exemplo:
 
 ```sql
--- script-4.sql
+-- script-5.sql
 create table festa(
   idfesta integer not null primary key autoincrement
   -- demais campos
@@ -145,8 +145,42 @@ Relacionamento **N:N** *(N para N)*
 *Vários convidados podem participar de várias festas*
 *Mas um convidado pode participar de uma determinada festa uma única vez*
 
+Mais um:
+
+```sql
+-- script-6.sql
+create table documento(
+  iddocumento integer not null primary key autoincrement
+  -- demais campos
+);
+
+create table pessoa (
+  idpessoa integer not null primary key autoincrement,
+  iddocumento unique integer not null,
+  foreign key (iddocumento) references documento(iddocumento)
+  -- demais campos
+);
+```
+
+Relacionamento **1:1** *(um para um)*
+*Uma pessoa tem exatamente um documento de identificação*
+
+- Devemos marcar a coluna como unique quando o valor dela não possa se repetir
+- Colunas unique são indexadas, assim como as colunas de chave primária
+
 ### Data Manipulation Language
 
+Definido o esquema de dados, podemos trabalhar com os mesmos com 4 operações:
+- insert
+- update
+- delete
+- select
+
+### Insert 
+
+```sql
+insert into pessoa (nomepessoa, telefonepessoa) values ('Joe', '12345678');
+```
 
 ## knex.js
 
