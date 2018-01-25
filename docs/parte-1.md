@@ -15,7 +15,7 @@ Precisamos, para começar, dominar as ferramentas mais básicas de trabalho.
 git pull
 # code code code...
 git add.
-git commit -m "work on feature [#1234]"
+git commit -m "working on feature [#1234]"
 git push
 # and go home
 ```
@@ -122,7 +122,8 @@ git merge feature/326-create-magic-function
 ```
 
 
-![gitflow](img/gitflow.svg)
+![gitflow-atlassian](img/gitflow.svg)
+(By Atlassian)
 
 ## GitHub
 
@@ -187,7 +188,7 @@ Uma das **várias** engines javascript.
 Tem vários e muito bons:
 
 - [Visual Studio Code](https://code.visualstudio.com/)
-- [Atom](https://atom.io/) 
+- [Atom](https://atom.io/)
 - [Sublime](https://www.sublimetext.com/)
 - [Geany](https://www.geany.org/)
 - [Kate](https://kate-editor.org/)
@@ -196,13 +197,14 @@ Neste *crash course* vamos usar o Code, mas o editor é questão de gosto pessoa
 
 ## Exercícios
 
-1. Criem suas contas no github, caso ainda não tenham. 
+1. Criem suas contas no github, caso ainda não tenham e respondam à issue `SEVVEP01` com a str: Presente
+_(VV é o número da edição atual: 01, 02, 03...)_
 2. **Adicionem (follow) seus colegas de sala. Todos eles.**
-3. Criem um projeto chamado **hello-js-se05-ep01**
+3. Criem um projeto chamado **hello-js-seVV-ep01**
 4. Façam checkout do projeto pela linha de comando
-5. Criem um novo arquivo chamado **SE05EP01.md**
+5. Criem um novo arquivo chamado **SEVVEP01.md**
 6. Adicionem, façam commit e push desse arquivo
 7. Criem um branch chamado **new-feature** e mudem o repositório para ele.
-8. Modifiquem o SE05EP01.md dentro deste branch
+8. Modifiquem o SEVVEP01.md dentro deste branch
 9. Adicionem, façam commit e push do arquivo modificado para este branch.
 10. Pra finalizar, merge do branch new-feature pro master

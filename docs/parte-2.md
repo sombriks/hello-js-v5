@@ -81,15 +81,15 @@ console.log(foo(4))
 - Os dois arquivos precisam estar na mesma pasta
 - É "./lib1" mesmo, não é "./lib1.js"
 
-A saída deixo vocês adivinharem ;-) 
+A saída deixo vocês adivinharem ;-)
 
 ## Introdução ao npm / package.json
 
 O segredo de entregar uma solução bem-sucedia e de boa manutenção é ter um bom
 processo. Organização. Procedimentos de trabalho.
 
-Além do git, que nos salva na hora de registrar as evoluções da solução, é 
-preciso uma ferramenta para organizar o projeto e suasdependências.
+Além do git, que nos salva na hora de registrar as evoluções da solução, é
+preciso uma ferramenta para organizar o projeto e suas dependências.
 
 ### Criando um projeto npm
 
@@ -99,9 +99,10 @@ Um projeto npm normalmente possui um arquivo chamado **package.json**
 
 Criar um projeto npm é simples. Abra um terminal e:
 
+(lembrando que VV é o número da edição atual)
 ```bash
-mkdir hello-js-se05-ep02
-cd hello-js-se05-ep02
+mkdir hello-js-seVV-ep02
+cd hello-js-seVV-ep02
 npm init -y
 ```
 
@@ -111,9 +112,9 @@ Por que o npm/package.json é bacana?
 - definir scripts (ex: npm run dev)
 - publicar pacotes no registro público
 
-### Usando módulos 
+### Usando módulos
 
-Ao instalar um módulo no seu projeto, ele será guardado numa pasta especial 
+Ao instalar um módulo no seu projeto, ele será guardado numa pasta especial
 chamada **node_modules**
 
 Exemplo:
@@ -127,11 +128,14 @@ ls
 index.js node_modules package.json
 ```
 
-**IMPORTANTE** evite adicionar a node_modules no controle de versão (no git).
+**IMPORTANTE**
+```
+evite adicionar a node_modules no controle de versão (no git).
+```
 
 ### Ignorando a node_modules com o .gitignore
 
-Para evitar isso, crie um arquivo chamado **.gitignore** dentro da pasta do 
+Para isso, crie um arquivo chamado **.gitignore** dentro da pasta do
 projeto e adicione uma linha contando o nome *node_modules*
 
 ```bash
@@ -141,7 +145,7 @@ echo node_modules > .gitignore
 
 ### Usando módulos do registro npm
 
-Usar um módulo é parecido com o que vimos anteriormente, exceto que não temos 
+Usar um módulo é parecido com o que vimos anteriormente, exceto que não temos
 que nos preocupar com o caminho até o módulo. O node faz a busca por nós:
 
 ```javascript
@@ -181,8 +185,8 @@ let c = 4 // nice, scoped, fair
 const d = 5 // the functional way
 ```
 
-Nota: as variáveis 'a' e 'b' ficam no escopo global ou no escopo da função. 
-As variáveis c e d vão para o escopo do bloco sempre, seja bloco de função 
+Nota: as variáveis 'a' e 'b' ficam no escopo global ou no escopo da função.
+As variáveis c e d vão para o escopo do bloco sempre, seja bloco de função
 ou bloco de controle.
 
 ### Tipos de dados
@@ -196,13 +200,13 @@ ou bloco de controle.
 - Regex (ex. /.* de .* de [0-9]+/ )
 - Classes (ex. class Rectangle extends Shape { } )
 
-Aí tem o **null** e temo **undefined**.
-Ambos indicam que a variável não aponta valor. mais sobre eles adiante.
+Aí tem o **null** e tem o **undefined**.
+Ambos indicam que a variável não aponta valor. Mais sobre eles adiante.
 
 ### Estruturas de controle
 
 ```javascript
-// switch. 
+// switch.
 switch(x){
   case 1:
     console.log("got one");
@@ -242,7 +246,7 @@ while(i-->0) console.log("Eu valho %s", i)
 
 let j = 0;
 do {
-  console.log("eu vajo %s", j)
+  console.log("eu valho %s", j)
   j = j + 1
 } while(j < 10)
 
@@ -271,8 +275,10 @@ y.shift() // retorna 0
 
 // remover de uma posição específica
 y = y.splice(1,1) // [1, 3]
+
 // adicionar
 y = y.splice(1,0,"x") // [1, "x", 3]
+
 // map, filter, sort
 y = y.map(e => "a" + e) // ['a1','ax','a3']
 x = [1,2,3,4,5,6,7,8,9]
@@ -280,7 +286,6 @@ x = x.filter(e => e > 5) // [6, 7, 8, 9]
 x = x.sort((a,b) => b - a ) // [9, 8, 7, 6]
 
 for(let k in x) console.log("%s: %s", k, x)
-
 ```
 
 ### Mapas
@@ -289,7 +294,7 @@ for(let k in x) console.log("%s: %s", k, x)
 let m1 = {} // mapa vazio
 m1.x = 2 // {x: 2}
 
-let m2 = {a:1,b:2}
+let m2 = { a:1, b:2 }
 m2.c = 3 // {a:1,b:2,c:3}
 
 for(let k in m2) console.log("%s: %s", k, x)
@@ -301,9 +306,8 @@ const api = {
   list(){
     return [1,2,3]
   },
-  key:"XDFGgjhJFffgdg", 
+  key:"XDFGgjhJFffgdg",
 }
-
 ```
 
 ### Funções
@@ -321,7 +325,7 @@ const a = (b, c, d) => {
   return  b + d
 }
 
-// funções que tenham uma só linha usam esse corpo como o prórpio retorno
+// funções que tenham uma linha usam esse corpo como o prórpio retorno
 
 const b = (c,d) => {
   return c + d
@@ -331,7 +335,7 @@ const e = (f,g) => f + g
 
 // as duas funções acima se equivalem
 
-// funções com um parâmetro só dispensam os parênteses
+// funções com um parâmetro dispensam os parênteses
 
 const b = c => c * c
 b(4)
@@ -343,13 +347,12 @@ const obj ={
   myfun(){ return "something" }
 }
 
-// tem ainda isso aqui pra debatermos:
+// tem ainda isso aqui para debatermos:
 
-const x = _ => ({a:1, b:2})
-
+const x = _ => ({ a:1, b:2 })
 ```
 
-### Desestruturantes 
+### Desestruturantes
 
 - Muito úteis, acreditem.
 
@@ -360,14 +363,14 @@ let a, b, c = [1,2,3,4]
 
 let x1 = "cool"
 let x2 = "well"
-let x3 = {x1,x2} // {x1:"cool", x2:"well"}
+let x3 = { x1, x2 } // {x1:"cool", x2:"well"}
 
 let head = 1
 let tail = [2,3,4]
 let list = [head, ...tail] // [1,2,3,4]
 
 const x = ({a,b,c}) => a * b * c
-// equivale a 
+// equivale a
 const y = param => param.a * param.b * param.c
 
 ```
@@ -383,7 +386,7 @@ class Shape {
         this.id = id
         this.move(x, y)
     }
-    
+
     move (x, y) {
         this.x = x
         this.y = y
@@ -402,11 +405,11 @@ class Point {
     this._y = y
   }
 
-  get coords () { 
+  get coords () {
     return ({
-      x:this._x, 
+      x:this._x,
       y:this._y
-    }) 
+    })
   }
 
   set coords({x,y}){
@@ -443,19 +446,19 @@ Mais detalhes [aqui](http://es6-features.org)
 
 ## Exercícios básicos de Javascript
 
-1. Crie um repositório no github chamado **hello-js-se05-ep02**
+1. Crie um repositório no github chamado **hello-js-seVV-ep02**
 2. Faça o chekout local deste repositório
 3. Crie um script chamado **index.js** dentro deste projeto
 4. Neste script faça um código que teste se o valor passado por parâmetro para
-   o script é par ou ímpar. Se for par, deve imprimir "PAR". Caso contrário, 
+   o script é par ou ímpar. Se for par, deve imprimir "PAR". Caso contrário,
    deve imprimir "ÌMPAR"
 5. Comite este script no *branch* **master**
 6. Faça o push deste script para o github
-7. Faça um segundo script chamado **index2.js** que calcule uma operação de 
-   cifra em cima de um argumento recebido dependendo do valor de uma variável 
-   de ambiente. Se a variável ALG for igual a MD5, use o algoritmo MD5. Se não 
+7. Faça um segundo script chamado **index2.js** que calcule uma operação de
+   cifra em cima de um argumento recebido dependendo do valor de uma variável
+   de ambiente. Se a variável ALG for igual a MD5, use o algoritmo MD5. Se não
    houver a variável ALG, use o algoritmo SHA256 visto no exemplo.
-8. Vocẽ deve buscar as formas de uso dos algoritmos na documentação da 
+8. Vocẽ deve buscar as formas de uso dos algoritmos na documentação da
    biblioteca [crypto-js](https://github.com/brix/crypto-js)
 9. Comite este segundo script também e dê push para o seu github.
-10. Se tiver esquecido de ignorar o node_modules não ganha doce!
+10. Se tiver esquecido de ignorar o node_modules não ganha doce! :lollipop:
