@@ -1,6 +1,6 @@
 # Parte 1
 
-Precisamos, para começar, dominar as ferramentas de trabalho.
+Precisamos, para começar, dominar as ferramentas mais básicas de trabalho.
 
 ## Git
 
@@ -70,6 +70,14 @@ E criando o branch de trabalho (local)
 
 ```bash
 git checkout -b feature/326-create-magic-function
+```
+
+E em que branch estou agora?
+
+```bash
+git branch
+* feature/326-create-magic-function
+  master
 ```
 
 Escrevendo código.. :coffee:
@@ -179,12 +187,12 @@ Neste *crash course* vamos usar o Code, mas o editor é questão de gosto pessoa
 ## Exercícios
 
 1. Criem suas contas no github, caso ainda não tenham. 
-2. Adicionem (follow) seus colegas de sala. Todos eles.
+2. **Adicionem (follow) seus colegas de sala. Todos eles.**
 3. Criem um projeto chamado **hello-js-se05-ep01**
-4. Façam checkout local do projeto pela linha de comando
+4. Façam checkout do projeto pela linha de comando
 5. Criem um novo arquivo chamado **SE05EP01.md**
 6. Adicionem, façam commit e push desse arquivo
-7. Criem um branch chamado **new-feature**
-8. Modifiquem o SE05EP01.md
+7. Criem um branch chamado **new-feature** e mudem o repositório para ele.
+8. Modifiquem o SE05EP01.md dentro deste branch
 9. Adicionem, façam commit e push do arquivo modificado para este branch.
 10. Pra finalizar, merge do branch new-feature pro master

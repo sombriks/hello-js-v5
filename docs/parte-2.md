@@ -69,7 +69,7 @@ Definindo e usando um módulo:
 
 ```javascript
 // lib1.js
-exports.foo = x => x * x
+exports.foo = x => x * x // i'll explain later!
 ```
 
 ```javascript
@@ -108,6 +108,52 @@ Por que o npm/package.json é bacana?
 - baixar dependências (ex: npm install axios --save)
 - definir scripts (ex: npm run dev)
 - publicar pacotes no registro público
+
+### Usando módulos 
+
+Ao instalar um módulo no seu projeto, ele será guardado numa pasta especial 
+chamada **node_modules**
+
+Exemplo:
+
+```bash
+ls
+index.js package.json
+npm install crypto-js --save
+# várias mensagens do npm depois
+ls
+index.js node_modules package.json
+```
+
+**IMPORTANTE** evite adicionar a node_modules no controle de versão (no git).
+
+Para evitar isso, crie um arquivo chamado **.gitignore** dentro da pasta do 
+projeto e adicione uma linha contando o nome *node_modules*
+
+```bash
+echo node_modules > .gitignore
+# ou abrir com um editor o arquivo .gitignore e escrever node_modules
+```
+
+Usar um módulo é parecido com o que vimos anteriormente, exceto que não temos 
+que nos preocupar com o caminho até o módulo. O node faz a busca por nós:
+
+```javascript
+// lib2.js
+const CryptoJS = require("crypto-js") // o node acha ele sozinho
+module.exports = {
+  gibberish (word){
+    return CryptoJS.SHA256(word).toString(CryptoJS.enc.Base64)
+  }
+}
+```
+
+```javascript
+// main.js
+const gibberish = require("./lib2").gibberish // note o './' dando o caminho
+console.log(gibberish("Hello you!"))
+// ZmwiiWiOjA8CFPL64+ADb0wl3R2dA+cjZ4SyjJnw3u0=
+```
 
 ## A linguagem Javascript
 
@@ -383,13 +429,25 @@ class Square extends Shape {
 }
 ```
 
+- Imagine o potencial de combinarmos módulos e classes!
+- Mais detalhes sobre essas realidades... adiante!
+
 Mais detalhes [aqui](http://es6-features.org)
 
 ## Exercícios básicos de Javascript
 
 1. Crie um repositório no github chamado **hello-js-se05-ep02**
 2. Faça o chekout local deste repositório
-3. Crie um script chamado index.js dentro deste projeto
+3. Crie um script chamado **index.js** dentro deste projeto
 4. Neste script faça um código que teste se o valor passado por parâmetro para
    o script é par ou ímpar. Se for par, deve imprimir "PAR". Caso contrário, 
    deve imprimir "ÌMPAR"
+5. Comite este script no *branch* **master**
+6. Faça o push deste script para o github
+7. Faça um segundo script chamado **index2.js** que calcule uma operação de 
+   cifra em cima de um argumento recebido dependendo do valor de uma variável 
+   de ambiente. Se a variável ALG for igual a MD5, use o algoritmo MD5. Se não 
+   houver a variável ALG, use o algoritmo SHA256 visto no exemplo.
+8. Vocẽ deve buscar as formas de uso dos algoritmos na documentação da 
+   biblioteca [crypto-js](https://github.com/brix/crypto-js)
+9. Comite este segundo script também e dê push para o seu github.
