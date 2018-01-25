@@ -28,6 +28,7 @@
     <script src="https://unpkg.com/docute@3/dist/docute.js"></script>
     <script src="https://unpkg.com/prismjs@1.10.0/components/prism-sql.js"></script>
     <script src="https://unpkg.com/docute/plugins/disqus.js"></script>
+    <script src="https://unpkg.com/docute-emojify"></script>
     <script>
       docute.init({
         nav: [
@@ -63,7 +64,8 @@
         plugins: [
           disqus({
             shortname: "https-sombriks-github-io-hello-js-v5"
-          })
+          }),
+          docuteEmojify()
         ]
       })
     </script>
