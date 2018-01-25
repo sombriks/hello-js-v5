@@ -220,9 +220,9 @@ insert into jogador (numerojogador,nomejogador) values (9,'Schopenhauer');
 insert into jogador (numerojogador,nomejogador) values (5,'Hegel');
 insert into jogador (numerojogador,nomejogador) values (3,'Hume');
 insert into jogador (numerojogador,nomejogador) values (2,'Hobbes');
-insert into jogador (numerojogador,nomejogador) values (3,'Spinoza');
+insert into jogador (numerojogador,nomejogador) values (7,'Spinoza');
 insert into jogador (numerojogador,nomejogador) values (3,'Heidegger');
-insert into jogador (numerojogador,nomejogador) values (3,'Sêneca');
+insert into jogador (numerojogador,nomejogador) values (9,'Sêneca');
 
 insert into equipe (nomeequipe) values ('Penso Logo Existo');
 insert into equipe (nomeequipe) values ('Só Sei que Nada Sei');
@@ -268,8 +268,194 @@ update equipe set nomeequipe = 'Alegoria da caverna' where idequipe = 3;
 delete from escalacao where idjogador = 4;
 ```
 
+- Dele remove registros
+- Operação destrutiva, **jamais esquecer a cláusula where** 
+
+### Select
+
+Agora as coisas ficam interessantes!
+
+- Selects produzem informação
+- Filtram os dados
+- Agrupam
+- Fazem junções
+
+Testem as consultas abaixo no **dbbrowser**:
+
+*Traga-me todos os jogadores.*
+
+```sql
+-- script-11.sql
+select * from jogador;
+```
+
+*Todos os jogadores com id igual a 7*
+
+```sql
+-- script-12.sql
+select * from jogador where idjogador = 7;
+```
+
+*Os nomes dos jogadores camisa 9*
+
+```sql
+-- script-13.sql
+select nomejogador from jogador where numerojogador = 9;
+```
+
+*Os jogadores que tem 'a' no nome* (note que 'A' é diferente de 'a')
+
+```sql
+-- script-14.sql
+select * from jogador where nomejogador like '%a%';
+```
+
+#### Agregadores
+
+Funções de agregação extraem ainda mais informação dos dados.
+
+*Conte os jogadores do time 1*
+
+```sql
+-- script-15.sql
+select count(idjogador) from escalacao where idequipe = 1;
+```
+
+*Conte os jogadores camisa 11*
+
+```sql
+-- script-16.sql
+select count(idjogador) from jogador where numerojogador = 11;
+```
+
+*Qual a maior numeração de camisa*
+
+```sql
+-- script-17.sql
+select max(numerojogador) from jogador;
+```
+
+*Ver se existem jogadores com camisa repetida*
+*Ou ainda: contar os jogadores `agrupados` pelo número da camisa*
+
+```sql
+-- script-18.sql
+select 
+  count(idjogador),numerojogador 
+from 
+  jogador 
+group by 
+  numerojogador
+```
+
+#### Join
+
+Junções servem para os dados de duas ou mais tabelas para produzir informação.
+
+*Mostre os nomes dos times e os nomes de seus respectivos jogadores*
+
+```sql
+-- script-19.sql
+select 
+  nomeequipe, nomejogador 
+from 
+  equipe, escalacao, jogador
+where 
+  equipe.idequipe = escalacao.idequipe
+  and escalacao.idjogador = jogador.idjogador
+```
+
+Ou ainda:
+
+```sql
+-- script-20.sql
+select 
+  nomeequipe, nomejogador 
+from 
+  equipe
+natural join 
+  escalacao
+natural join 
+  jogador
+```
+
+**NOTA**: junções naturais dependem de uma odelagem muito precisa onde os nomes
+das colunas são únicos em todo o esquema.
+
+É possível combinar agregadores e junções:
+
+*Quantos jogadores por time temos*
+
+```sql
+-- script-21.sql
+select 
+  nomeequipe, count(idjogador)
+from 
+  equipe
+natural join 
+  escalacao
+natural join 
+  jogador
+group by nomeequipe
+```
+
+O SQL permite ainda ordenação, paginação e outras estruturas especiais que
+veremos no decorrer do nosso percurso.
 
 ## knex.js
+
+De volta ao javascript!
+
+Mas o que é o **knex**? É um query builder.
+
+Usar uma linguagem dentro da outra é, por vezes, problemático.
+
+Em vez de usar SQL diretamente do lado javascript na forma de strings (que 
+podem conter erros e tal), usamos javascipt para construir as consultas.
+
+Na pasta do projeto npm (como? ainda não fez a pasta do projeto?) instale como
+dependências o knex e o sqlite3:
+
+```bash
+mkdir hello-js-seVV-ep04
+cd hello-js-seVV-ep04
+npm init -y
+npm install knex sqlite3 --save
+touch index.js
+```
+
+Sabe o banco de dados criado para rodarmos os exemplos de SQL? coloque-o 
+dentro da pasta do projeto, ao lado do **index.js**
+
+Vamos acessar via javascript os dados desse banco usando o **knex**:
+
+```javascript
+// index.js
+const knex = require("knex")({
+  client: 'sqlite3',
+  connection: {
+    filename: "./contatos.db"
+  }
+})
+
+knex("jogador").select().then(ret => {
+  console.log(ret)
+  process.exit(0) // finalizar execução do script
+})
+```
+
+Pontos dignos de nota:
+- O require do knex é um pouco diferente. Como ele retorna uma função, já 
+  passamos o objeto de configuração ali mesmo e guardamos a instância do
+  querybuilder
+- O knex guarda um pool de conexões (*long story, tell you later*) e por isso
+  o script não morre quando chega ao final. Dá um efeito parecido com o que 
+  vimos no script do express, mas por razões diferentes
+- Aquele **.then(...)** é a realização de uma 
+  [Promessa](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+  A primeira parte, **knex("jogador").select()**, retorna uma promessa
+- O argumento da realização da promessa é uma função.  
+
 
 ## Exercícios Node.js + SQL
 
@@ -285,7 +471,9 @@ delete from escalacao where idjogador = 4;
    a operação (insert, update, delete, list). O segundo argumento depende da
    operação
   1. Caso a operação seja insert fornecer nome,telefone separados por vírgula
-  2. Caso seja um update, prover id,nome,telefone (ex: 1,joão,123456)
+  2. Caso seja um update, prover id,nome,telefone (ex: 1,joão,123456). Use a
+     função [split](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/split) 
+     das Strings do javascript para separar valores.
   3. Em caso de delete, fornecer apenas o id
   4. No select não é preciso um segundo argumento
 10. A saída, se houver, deve ser jogada no **console.log()**
