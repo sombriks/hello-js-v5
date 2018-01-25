@@ -56,7 +56,7 @@ git remote add origin git@github.com:sombriks/hello-js-v5.git
 ou
 
 ```bash
-git add origin https://github.com/sombriks/hello-js-v5.git
+git remote add origin https://github.com/sombriks/hello-js-v5.git
 ```
 
 Tem novidade aí?
