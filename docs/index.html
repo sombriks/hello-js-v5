@@ -26,20 +26,22 @@
   <body>
     <div id="app"></div>
     <script src="https://unpkg.com/docute@3/dist/docute.js"></script>
-    <script src="https://unpkg.com/docute/plugins/docsearch.js"></script>
+    <script src="https://unpkg.com/prismjs@1.10.0/components/prism-sql.js"></script>
     <script src="https://unpkg.com/docute/plugins/disqus.js"></script>
     <script>
       docute.init({
         nav: [
           { title: "Início", path: "/" },
-          { title: "Parte 1", path: "/parte-1" },
-          { title: "Parte 2", path: "/parte-2" },
-          { title: "Parte 3", path: "/parte-3" },
-          { title: "Parte 4", path: "/parte-4" },
-          { title: "Parte 5", path: "/parte-5" },
-          { title: "Parte 6", path: "/parte-6" },
-          { title: "Parte 7", path: "/parte-7" },
-          { title: "Parte 8", path: "/parte-8" },
+          { title: "Módulos", type: "dropdown", items: [
+            { title: "Parte 1", path: "/parte-1" },
+            { title: "Parte 2", path: "/parte-2" },
+            { title: "Parte 3", path: "/parte-3" },
+            { title: "Parte 4", path: "/parte-4" },
+            { title: "Parte 5", path: "/parte-5" },
+            { title: "Parte 6", path: "/parte-6" },
+            { title: "Parte 7", path: "/parte-7" },
+            { title: "Parte 8", path: "/parte-8" },
+          ]}
         ],
         icons: [
           {

@@ -39,9 +39,114 @@ Precisamos persistir dados em uma base de dados relacional.
 
 ![db-6.png](img/prints-db-browser/db-6.png)
 
-Agora estamos prontos pra falar de SQL!
+### Outros SGBD's
+
+- [PostgreSQL](https://www.postgresql.org/)
+- [MySQL](https://www.mysql.com/)
+- [Oracle](http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html)
+- [DB2](https://www.ibm.com/analytics/us/en/db2/trials/)
+- [H2](http://www.h2database.com/html/main.html) 
+- [SQLServer](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads)
+
+*"Qual é o melhor?"*
 
 ## SQL
+
+- Structured Query Language
+- Baseado na Algebra Relacional (matemática, meu chapa!)
+- Bom para produzir informação em cima de uma massa de dados 
+- ACID (Atomicidade, Consistência, Isolamento e Durabilidade)
+
+Podemos dividir o SQL em DDL e DML
+
+### Data Definition Language
+
+- Podemos criar tabelas
+
+```sql
+-- script-1.sql
+create table contato(
+  idcontato integer not null primary key autoincrement,
+  nomecontato varchar(255) not null,
+  datacriacaocontato timestamp not null default current_timestamp
+);
+```
+
+- Podemos adicionar colunas em tabelas existentes
+
+```sql
+-- script-2.sql
+alter table contato add column telefonecontato varchar(255);
+```
+
+- Podemos excluir tabelas
+
+```sql
+-- script-3.sql
+drop table contato;
+```
+
+- O sqlite possui limitações, mas outros bancos permitem *modificar* colunas, 
+  *remover* colunas e/ou restrições. 
+
+#### Chave primária e chave estrangeira
+
+- O ID de uma determinada entidade (ler o 
+  [paradoxo do navio de teseu](https://pt.wikipedia.org/wiki/Navio_de_Teseu#O_paradoxo)) 
+  diferencia de modo absoluto uma da outra
+- Entidades distintas podem se relacionar, então uma entidade guarda a chave da
+  outra em uma de suas colunas
+
+Exemplo:
+
+```sql
+-- script-4.sql
+create table modelo(
+  idmodelo integer not null primary key autoincrement,
+  descricaomodelo varchar(255) not null 
+);
+
+create table carro (
+  idcarro integer not null primary key autoincrement,
+  placa varchar(255) not null,
+  idmodelo integer not null,
+  foreign key (idmodelo) references modelo(idmodelo) 
+);
+```
+
+Relacionamento **1:N** *(um para N)*
+Uma forma de ler isso é: *existem vários modelosde carro, mas um carro possui*
+*apenas um modelo*
+
+Outro Exemplo:
+
+```sql
+-- script-4.sql
+create table festa(
+  idfesta integer not null primary key autoincrement
+  -- demais campos
+);
+
+create table convidado (
+  idconvidado integer not null primary key autoincrement
+  -- demais campos
+);
+
+create table festa_convidado (
+  idfesta integer not null,
+  idconvidado integer not null,
+  foreign key (idfesta) references festa(idfesta),
+  foreign key (idconvidado) references convidado(idconvidado),
+  primary key (idfesta,idconvidado)
+);
+```
+
+Relacionamento **N:N** *(N para N)*
+*Vários convidados podem participar de várias festas*
+*Mas um convidado pode participar de uma determinada festa uma única vez*
+
+### Data Manipulation Language
+
 
 ## knex.js
 
