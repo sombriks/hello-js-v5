@@ -429,6 +429,8 @@ dentro da pasta do projeto, ao lado do **index.js**
 
 Vamos acessar via javascript os dados desse banco usando o **knex**:
 
+### Select
+
 ```javascript
 // index.js
 const knex = require("knex")({
@@ -444,6 +446,8 @@ knex("jogador").select().then(ret => {
 })
 ```
 
+Execute na linha de comando (**node index.js**)
+
 Pontos dignos de nota:
 - O require do knex é um pouco diferente. Como ele retorna uma função, já 
   passamos o objeto de configuração ali mesmo e guardamos a instância do
@@ -455,7 +459,86 @@ Pontos dignos de nota:
   [Promessa](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Promise).
   A primeira parte, **knex("jogador").select()**, retorna uma promessa
 - O argumento da realização da promessa é uma função.  
+- Assim como no express, a natureza assíncrona do node está presente no knex
 
+Podemos inserir dados usando knex. Crie o index2.js:
+
+### Insert
+
+```javascript
+// index2.js
+const knex = require("knex")({
+  client: 'sqlite3',
+  connection: {
+    filename: "./contatos.db"
+  }
+})
+
+let nomejogador = "Pascal"
+let numerojogador = 11
+
+let jogador = {nomejogador, numerojogador}
+
+knex("jogador").insert(jogador,"idjogador").then(ret => {
+  console.log(ret)
+  process.exit(0) // finalizar execução do script
+})
+```
+
+O segundo parâmetro do insert é um truque muito legal que será útil no futuro.
+Ao inserir, o knex nos devolve o id gerado.
+
+Notou que a configuração sempre se repete?
+Podemos movê-la para um módulo à parte:
+
+```javascript
+// config.js
+exports.knex = require("knex")({
+  client: 'sqlite3',
+  connection: {
+    filename: "./contatos.db"
+  }
+})
+```
+
+É recomendado, conforme dito anteriormente, ter as chaves na hora de um update 
+ou na hora de um delete.
+
+### Update
+
+```javascript
+// index3.js
+const knex = require("./config").knex
+
+const idjogador = 8
+const numerojogador = 10
+
+knex("jogador").update({numerojogador}).where({idjogador}).then(ret => {
+  console.log(ret)
+  process.exit(0)
+})
+```
+
+### Delete
+
+```javascript
+// index3.js
+const knex = require("./config").knex
+
+const idjogador = 16
+
+knex("jogador").del().where({idjogador}).then(ret => {
+  console.log(ret)
+  process.exit(0)
+})
+```
+
+O knex reflete todas as operações do SQL para dentro do javascript.
+
+Ele não te salva de ter que conhecer SQL de verdade, mas ajuda na hora de 
+escrever programas mais limpos e de melhor entendimento.
+
+Mais sobre o knex na [documentação oficial](http://knexjs.org/).
 
 ## Exercícios Node.js + SQL
 
