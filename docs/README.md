@@ -16,6 +16,21 @@ oferecer uma solução completa para um problema proposto.
 E o que é uma solução completa? É base de dados, servidor de aplicação e
 interface com o usuário.
 
+## Generalista x Especialista
+
+Por que ser fullstack? 
+
+Não se pretende substituir uma equipe inteira por um único profissional.
+
+Longe disso.
+
+A ideia é que o profissional fullstack tenha versatilidade para atuar em 
+qualquer nicho e em qualquer fase do desenvolvimento, inclusive intercambiar
+entre os papéis se preciso for.
+
+Você enquanto fullstack deve se considerar, antes de autosuficiente, um 
+desenvolvedor **versátil**.
+
 ## Índice
 
 Os módulos abaixo são o material de estudo e exercício necessários para ir
