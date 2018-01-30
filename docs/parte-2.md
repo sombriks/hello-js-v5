@@ -335,15 +335,15 @@ const e = (f,g) => f + g
 
 // as duas funções acima se equivalem
 
-// funções com um parâmetro dispensam os parênteses
+// funções com um só parâmetro dispensam os parênteses
 
 const b = c => c * c
-b(4)
+b(4) // usando a função
 // imprime 16
 
-// funções dentro de mapas tem direito a sintax expecial:
+// funções dentro de mapas tem direito a sintaxe especial:
 
-const obj ={
+const obj = {
   myfun(){ return "something" }
 }
 
@@ -367,7 +367,7 @@ let x3 = { x1, x2 } // {x1:"cool", x2:"well"}
 
 let head = 1
 let tail = [2,3,4]
-let list = [head, ...tail] // [1,2,3,4]
+let list = [head, ...tail] // [1,2,3,4] // o "..." é também conhecido como spread
 
 const x = ({a,b,c}) => a * b * c
 // equivale a
@@ -437,6 +437,8 @@ class Square extends Shape {
     super(id,l,l)
   }
 }
+// const sq = new Square("one",1)
+// sq.move(2,6)
 ```
 
 - Imagine o potencial de combinarmos módulos e classes!

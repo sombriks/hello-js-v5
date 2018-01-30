@@ -63,11 +63,11 @@ habilidades exercitadas nas partes 1 e 2 serão requisitadas. E por aí vai.
 - [Parte 5](/parte-5) (4h)
   - Knex migrations
   - Combinando knex, knex migrations e express
-  - Exercício
-- [Parte 6](/parte-6) (4h)
   - Arquivos estáticos com express
   - HTML
   - CSS
+  - Exercício
+- [Parte 6](/parte-6) (4h)
   - Javascript no navegador de internet
   - Exercício
   - Introdução ao Vue.js
