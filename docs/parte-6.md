@@ -92,12 +92,12 @@ Exemplo:
           const li = document.createElement("li")
           li.innerHTML = `<a href="${e.url}">${e.title}</a>`
           document.getElementById("catlist").appendChild(li)
-        }).catch(err => {
-          console.log(err)
-          const li = document.createElement("li")
-          li.innerHTML = "erro!"
-          document.getElementById("catlist").appendChild(li)
         })
+      }).catch(err => {
+        console.log(err)
+        const li = document.createElement("li")
+        li.innerHTML = "erro!"
+        document.getElementById("catlist").appendChild(li)
       })
     </script>
   </body>
@@ -148,8 +148,106 @@ pelos CDN's para testar as coisas mais rapidamente online.
 - Simples
 - Flexível, escala "para cima" e "para baixo"
   - CDN, NPM e integração com *bundlers* e ferramentas *cli*
- 
+
+Modifique o index.html:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello world vue</title>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+  </head>
+  <body>
+    <div id="mount">
+      <h1>Hello, {{name}}</h1>
+      <input v-model="name">
+    </div>
+    <script type="text/javascript">
+      new Vue({
+        el: "#mount",
+        data: { name: "joe" }
+      })
+    </script>
+  </body>
+</html>
+``` 
+
+Diferente de antigamente, não precisamos explicar muita coisa sobre como 
+"grudar" uma variável numa interface. É o famoso [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel).
+
+Vários frameworks fazem isso, mas o vue é um dos mais simples de testar.
+
+A reatividade transparente é o que permite você só informar que o atributo 
+javascript 'name' e lá no HTML o atributo de tag "v-model" resolver o resto.
 
 ## Exercício
+
+Este exercício demanda tudo visto desde a aula 1.
+
+1. Crie no **github** o projeto **hello-js-seVV-ep06**
+2. Faça um **clone** local
+3. Dê **npm init** para criar o projeto
+4. Instale como dependências **sqlite3, knex, express, morgan e body-parser**. 
+   Não esquecer o **--save**
+5. Dê **knex init** neste projeto
+6. Crie um migrate chamado **esquema_inicial**
+7. Neste migrate, defina a criação de uma tabela de pessoas. A tabela deve 
+   conter um campo id, um campo nome, um campo telefone e um campo 
+   data de nascimento. não esquecer de desfazer a tabela no down do migrate
+8. Crie um migrate chamado **carga_inicial**
+9. Crie um insert de 5 pessoas 
+10. Crie um **index.js** para definirmos uma instãncia do **express**
+    (*const app = express()*)
+11. Adicione no express uma rota GET para listar pessoas (**"/listpessoas"**)
+12. Adicione no express uma rota GET para recuperar pelo id (que deve chegar 
+    como variável de caminho (req.params)) exatamente uma pessoa, caso exista
+13. Adicione no express uma rota POST para inserir novas pessoas. O insert 
+    deve retornar o id da pessoa recém-inserida no banco
+14. Adicione no express uma rota PUT para fazer o update de pessoas existentes
+15. Adicione no express uma rota DELETE que receba na url (req.params) o id da
+    pessoa a ser removida, caso exista.
+16. Garanta que os migrates rodarão antes do express entrar no ar     
+17. Crie uma pasta chamada **public** 
+18. Faça o express servir de modo estático o conteúdo desta pasta
+19. Crie um arquivo chamado index.html
+
+Feito o exercício poderemos seguir para a próxima parte
+
 ## Axios client-side
+
+O axios no lado do browser, conforme apontamos, funciona igual ao lado do 
+servidor. Mas o browser, o navegador, possui limitações de segurança que o 
+lado do servidor não possui.
+
+Exemplo: rode o index.js criado no exercício anterior. Em seguida, defina 
+dentro do index.html da pasta public o seguinte documento:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>hello-js-se05-ep-06</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <script>
+      const api = axios.create({
+        baseURL:"http://localhost:3000"
+      })
+      api.get("/listpessoas").then(ret => {
+        console.log(ret)
+      })
+    </script>
+  </body>
+</html>
+```
+
+- Visite http://localhost:3000/ e inspecione o documento HTML
+- Agora visite http://127.0.0.1:3000/ e inspecione o documento também
+- *Notou alguma diferença?*
+
+### CORS
+
 ## Exercício axios client-side chamando server-side
+
