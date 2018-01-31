@@ -19,11 +19,49 @@ seu documento HTML:
 <html>
   <body>
     <script>
+      // index.html
       console.log("Hello world!!!")
     </script>
   </body>
 </html>
 ```
+
+Ao abrir este arquivo no navegador, o documento estará vazio. Mas se você inspecionar a página (`ctrl+shift+i`):
+
+![console-javascript-browser](img/console-javascript-browser.png)
+
+Observe que este inspetor oferece muitas outras coisas além de um console, mas trataremos delas adiante.
+
+O javascript no browser está *embutido* (*embedded*), portanto não tem como 
+usar diretamente argumentos ou variáveis de ambiente nele.
+
+### Manipulando a DOM
+
+O javascript no browser pode, entretanto, manipular os elementos do documento 
+HTML. Modifique o index.html para exemplificarmos isso:
+
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      // index.html
+      let i = 100
+      while(i--) {
+        const p = document.createElement("p")
+        p.innerHTML=i
+        document.body.appendChild(p)
+      }
+    </script>
+  </body>
+</html>
+```
+
+Nunca foi tão fácil fazer um documento de 99 parágrafos, ;-)
+
+Assim como temos o process global no node, no javascript também temos alguns 
+objetos globais. o **document** é um deles. Ele nos dá acesso à àrvoce de 
+elementos do documento.
 
 
 ## Exercício
