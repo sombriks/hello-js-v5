@@ -1,6 +1,7 @@
 # Parte 5
 
-Precisamos combinar persistência e requisições HTTP numa solução backend.
+Precisamos combinar persistência, requisições HTTP e servir documentos HTML 
+com folhas de estilo (css) numa solução backend.
 
 ## Knex migrations
 
@@ -429,7 +430,7 @@ levam para outros documentos.
 Exemplo de um documento HTML:
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <!-- Comentário -->
@@ -476,7 +477,7 @@ Para tanto, é preciso construir um formulário.
 Modifique o documento html criado (*public/index.html*):
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <!-- Comentário -->
@@ -589,7 +590,7 @@ Podemos definir estilos usando [os mais variados atributos](https://developer.mo
 Modifique mais uma vez o index.html:
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <!-- Comentário -->
@@ -635,7 +636,7 @@ Podemos definir estilos dentro de tags `<style>`. É possível ainda adicionar
 um **link** para um arquivo css:
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Hello World!</title>

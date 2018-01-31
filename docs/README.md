@@ -69,9 +69,7 @@ habilidades exercitadas nas partes 1 e 2 serão requisitadas. E por aí vai.
   - Exercício
 - [Parte 6](/parte-6) (4h)
   - Javascript no navegador de internet
-  - Exercício
   - Introdução ao Vue.js
-  - Exercício
   - Axios client-side
   - Exercício axios client-side chamando server-side
 - [Parte 7](/parte-7) (4h)
