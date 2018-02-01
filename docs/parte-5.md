@@ -1,35 +1,28 @@
 # Parte 5
 
-Precisamos combinar persistência, requisições HTTP e servir documentos HTML 
-com folhas de estilo (css) numa solução backend.
+Precisamos combinar persistência, requisições HTTP e servir documentos HTML com folhas de estilo (css) numa solução backend.
 
 ## Knex migrations
 
-Esquemas de dados não são gravados em mármore. Uma nova coluna pode surgir, 
-tabelas podem deixar de existir, novas aparecer.
+Esquemas de dados não são gravados em mármore. Uma nova coluna pode surgir, tabelas podem deixar de existir, novas aparecer.
 
 Em mudando a percepção do negócio, fatalmente o esquema de dados mudará.
 
-Gerenciar a mudança do esquema de dados é missão crítica de qualquer DBA e o 
-desenvolvedor fullstack não é exceção.
+Gerenciar a mudança do esquema de dados é missão crítica de qualquer DBA e o desenvolvedor fullstack não é exceção.
 
 Entra em cena o conceito de migração de esquema.
 
 ### Why migrates?
 
-As mudanças na aplicação, como dissemos anteriormente, são motivadas por 
-mudanças de negócio.
+As mudanças na aplicação, como dissemos anteriormente, são motivadas por mudanças de negócio.
 
-Entretanto, com a sepação existente entre aplicação e dados, nem sempre o 
-esquema de dados pode ser versionado, como é feito com o código do aplicativo.
+Entretanto, com a sepação existente entre aplicação e dados, nem sempre o esquema de dados pode ser versionado, como é feito com o código do aplicativo.
 
-Arquivos de migração contém *patches* para o esquema de dados, alterando o 
-banco para ficar alinhado com a mais recente mudança de negócio.
+Arquivos de migração contém *patches* para o esquema de dados, alterando o banco para ficar alinhado com a mais recente mudança de negócio.
 
 Uma nova versão do código do aplicativo trará um migrate *caso necessário*.
 
-Com o knex podemos fazer uso de um sistema de migrações. Primeiro nstale o 
-knex a nível de sistema:
+Com o knex podemos fazer uso de um sistema de migrações. Primeiro instale o knex a nível de sistema:
 
 ```bash
 sudo npm -g install knex
@@ -42,8 +35,8 @@ Se você não tiver permissões de administrador na máquina, tente o seguinte:
 - Crie um projeto que use o knex:
 
 ```bash
-mkdir hello-js-seVV-ep05
-cd hello-js-seVV-ep05
+mkdir hello-js-se05-ep05
+cd hello-js-se05-ep05
 npm init -y
 npm install knex sqlite3 --save
 ./node_modules/.bin/knex init
@@ -99,7 +92,7 @@ module.exports = {
 };
 ```
 
-É importante que este arquivo esteja na raíz do projeto, pois o sistema de 
+É importante que este arquivo esteja na raíz do projeto, pois o sistema de
 migrações roda a partir do ponto de execução do node.
 
 ### Criando um migrate
@@ -112,7 +105,7 @@ Para criar um migrate, devemos usar o comando abaixo:
 ```
 
 - **migrate:make** é o parâmetro solicitando um novo migrate
-- **esquema_inicial** é o nome que eu escolhi para este migrate. No knex, nome 
+- **esquema_inicial** é o nome que eu escolhi para este migrate. No knex, nome
   de migrate não pode conter espaços, por isso aquele underline ali
 
 O resultado deste comando deve ser mais ou menos este:
@@ -120,32 +113,34 @@ O resultado deste comando deve ser mais ou menos este:
 ```bash
 Using environment: development
 Knex:warning - sqlite does not support inserting default values. Set the `useNullAsDefault` flag to hide this warning. (see docs http://knexjs.org/#Builder-insert).
-Created Migration: /home/sombriks/Documentos/hello-js-seVV-ep05/migrations/20180130141837_esquema_inicial.js
+Created Migration: /home/sombriks/Documentos/hello-js-se05-ep05/migrations/20180130141837_esquema_inicial.js
 ```
 
 Seu projeto deve estar organizado mais ou menos assim:
 
 ```bash
-hello-js-seVV-ep05
+hello-js-se05-ep05
 ├── dev.sqlite3
 ├── knexfile.js
+├── node_modules
+│   └── uma ruma de pasta...
 ├── migrations
 │   └── 20180130141837_esquema_inicial.js
 ├── package.json
 └── package-lock.json
 ```
 
-Os migrates residirão numa pasta chamada migrations. Quando solicitamos a 
+Os migrates residirão numa pasta chamada migrations. Quando solicitamos a
 criação de um migrate, o knex nos entrega um arquivo com a seguinte estrutura:
 
 ```javascript
 // migrations/20180130141837_esquema_inicial.js
 exports.up = function(knex, Promise) {
-  
+
 };
 
 exports.down = function(knex, Promise) {
-  
+
 };
 ```
 
@@ -153,7 +148,7 @@ exports.down = function(knex, Promise) {
 
 Antes de aplicar o migrate no banco de dados, vamos escrever ele!
 
-Na [documentação oficial do knex](http://knexjs.org/#Schema) tem tudo o que 
+Na [documentação oficial do knex](http://knexjs.org/#Schema) tem tudo o que
 podemos usar para criar, alterar ou remover estruturas de banco.
 
 Vamos, neste migrate, criar uma tabela:
@@ -182,13 +177,13 @@ E a saída deve se parecer com esta:
 ```bash
 Using environment: development
 Knex:warning - sqlite does not support inserting default values. Set the `useNullAsDefault` flag to hide this warning. (see docs http://knexjs.org/#Builder-insert).
-Batch 1 run: 1 migrations 
+Batch 1 run: 1 migrations
 /home/sombriks/Documentos/hello-js-se05-ep05/migrations/20180130141837_esquema_inicial.js
 ```
 
 #### Inserindo dados com o knex migrations
 
-Além de manipular o esquema de dados, podemos usar migrações para fazer carga 
+Além de manipular o esquema de dados, podemos usar migrações para fazer carga
 inicial de dados. Suponha o migrate abaixo:
 
 ```javascript
@@ -255,43 +250,43 @@ exports.down = knex => knex("country").del()
   .whereIn("idstate", estados.map(e => e.idstate))
 ```
 
-Como migrates rodam, em produção, apenas uma vez, fazer carga de dados deste 
+Como migrates rodam, em produção, apenas uma vez, fazer carga de dados deste
 modo é a forma segura de se fazer isso.
 
 #### Excercício
 
-- Crie o repositório e a pasta de projeto (hello-js-seVV-ep05)
+- Crie o repositório e a pasta de projeto (hello-js-se05-ep05)
 - Instale as dependências knex e sqlite3 no projeto npm
 - Dê init no knex dentro do projeto npm
 - Crie o migrate *esquema_inicial* mostrado no exemplo
 - Use o *dbbrowser* para conferir o esquema criado
 - Crie um novo migrate chamado add_contato_telefone
-- Este migrate deverá **alterar** a tabela **contato** adicionando a coluna 
+- Este migrate deverá **alterar** a tabela **contato** adicionando a coluna
   **telefone**. Leia a documentação do knex para saber como faz isso
 - Execute este segundo migrate para adicionar a coluna à tabela
-- Faça um migrate adicional para carregar três pessoas no banco. chame-o de 
+- Faça um migrate adicional para carregar três pessoas no banco. chame-o de
   carga_inicial
-- Use o *dbbrowser* para conferir se a tabela tem uma nova coluna  
+- Use o *dbbrowser* para conferir se a tabela tem uma nova coluna
 
 #### Sobre o UP e DOWN de um esquema de dados
 
-Estas duas funções exportadas pelo arquivo de migração servem para "fazer" 
+Estas duas funções exportadas pelo arquivo de migração servem para "fazer"
 e para "desfazer" a migração de banco.
 
-Em fase de desenvolvimento, é bastante útil fazer um "up", pra conferir como o 
-modelo de dados se comporta. Se não ficar como o esperado, basta fazer "down" 
+Em fase de desenvolvimento, é bastante útil fazer um "up", pra conferir como o
+modelo de dados se comporta. Se não ficar como o esperado, basta fazer "down"
 e modificar o arquivo de migração de forma adequada.
 
 Em produção, entretanto, **não faz o menor sentido fazer um down do esquema**.
-Dados podem ser perdidos. A alteração do esquema já foi consolidade as mais 
+Dados podem ser perdidos. A alteração do esquema já foi consolidade as mais
 distintas e imagináveis formas.
 
-Adicionalmente, uma vez que um arquivo de migração rode em produção, é 
+Adicionalmente, uma vez que um arquivo de migração rode em produção, é
 recomendado **nunca mais exer nesse arquivo**.
- 
+
 ## Combinando knex, knex migrations e express
 
-Com o [express](http://expressjs.com), conforme vimos anteriormente, podemos 
+Com o [express](http://expressjs.com), conforme vimos anteriormente, podemos
 atender requisições HTTP.
 
 Estas requisições farão consultas ao banco de dados utilizando o knex.
@@ -302,7 +297,7 @@ feito quando consumimos uma api pública.
 ### Adicionando o express
 
 ```bash
-cd hello-js-seVV-ep05
+cd hello-js-se05-ep05
 npm install express morgan --save
 touch index.js
 ```
@@ -325,7 +320,7 @@ app.get("/listcontatos", (req, res) => {
   }).catch(err => {
     res.status(500).send(err)
     console.log(err)
-  })  
+  })
 })
 app.get("/addcontato", (req, res) => {
   knex("contato").insert(req.query, "idcontato").then(ret => {
@@ -336,17 +331,17 @@ app.get("/addcontato", (req, res) => {
   })
 })
 
-knex.migrate.latest().then(_ => 
-  app.listen(3000, _ => 
+knex.migrate.latest().then(_ =>
+  app.listen(3000, _ =>
     console.log("server online!")))
 ```
 
 Sobre este script:
 
-- O [morgan](https://github.com/expressjs/morgan) é uma ferramenta de coleta 
-  de mensagens de log. Mensagens de log são importantes para analisar o 
+- O [morgan](https://github.com/expressjs/morgan) é uma ferramenta de coleta
+  de mensagens de log. Mensagens de log são importantes para analisar o
   funcionamento da aplicação
-- Usamos duas rotas, uma para listar e uma para inserir. Nenhuma está bonita 
+- Usamos duas rotas, uma para listar e uma para inserir. Nenhuma está bonita
   ainda
 - Antes de subir o servidor na porta 3000, chamamos o sistema de migração do
   knex de modo a garantirmos que o banco está com o esquema mais recente.
@@ -356,11 +351,11 @@ Sobre este script:
 - Nem só de dados dinâmicos vive a web
 - o express também é capaz de servir arquivos
 
-Crie no seu projeto uma pasta chamada public e dentro dela coloque um arquivo 
+Crie no seu projeto uma pasta chamada public e dentro dela coloque um arquivo
 de texto:
 
 ```bash
-cd hello-js-seVV-ep05
+cd hello-js-se05-ep05
 mkdir public
 echo "Olá estático" >> public/hello.txt
 ```
@@ -385,7 +380,7 @@ app.get("/listcontatos", (req, res) => {
   }).catch(err => {
     res.status(500).send(err)
     console.log(err)
-  })  
+  })
 })
 app.get("/addcontato", (req, res) => {
   knex("contato").insert(req.query, "idcontato").then(ret => {
@@ -396,8 +391,8 @@ app.get("/addcontato", (req, res) => {
   })
 })
 
-knex.migrate.latest().then(_ => 
-  app.listen(3000, _ => 
+knex.migrate.latest().then(_ =>
+  app.listen(3000, _ =>
     console.log("server online!")))
 ```
 
@@ -409,7 +404,7 @@ Podemos servir:
 - documentos
 - ...
 
-Não faz sentido, por exemplo, gerar um documento de termos de uso 
+Não faz sentido, por exemplo, gerar um documento de termos de uso
 dinamicamente. Basta servir o contrato em forma de pdf ou html.
 
 Mais detalhes sobre a pasta estática do express na [documentação oficial](https://expressjs.com/en/4x/api.html#express.static) do express.
@@ -447,16 +442,16 @@ As palavras entre "<" e  ">" são elementos ou tags.
 
 O `<h1>` é a tag de "Título 1"
 
-O `<p>` é a tag de "Parágrafo" 
+O `<p>` é a tag de "Parágrafo"
 
 Elementos com "</" são fechamentos de tag.
 
-Aquele `style="color:blue"` é um atributo. Elementos podem contar um ou mais 
+Aquele `style="color:blue"` é um atributo. Elementos podem contar um ou mais
 atributos.
 
-O html é tolerante a falhas. 
+O html é tolerante a falhas.
 
-Isso não quer dizer que ele corrija seus erros, mas sim que ele tenta se 
+Isso não quer dizer que ele corrija seus erros, mas sim que ele tenta se
 recuperar dele, nem sempre resultando no que você espera.
 
 ### Exercício
@@ -517,7 +512,7 @@ Nossa configuração de rotas, entretanto, não atende este verbo ainda.
 Para tratar os dados a receber, adicione mais um plugin ao express:
 
 ```bash
-cd hello-js-seVV-ep05
+cd hello-js-se05-ep05
 npm i body-parser --save
 ```
 
@@ -544,7 +539,7 @@ app.get("/listcontatos", (req, res) => {
   }).catch(err => {
     res.status(500).send(err)
     console.log(err)
-  })  
+  })
 })
 
 app.post("/addcontato", (req, res) => {
@@ -557,11 +552,11 @@ app.post("/addcontato", (req, res) => {
   })
 })
 
-knex.migrate.latest().then(_ => 
-  app.listen(3000, _ => 
+knex.migrate.latest().then(_ =>
+  app.listen(3000, _ =>
     console.log("server online!")))
 ```
-O [body-parser](https://github.com/expressjs/body-parser#bodyparserurlencodedoptions) 
+O [body-parser](https://github.com/expressjs/body-parser#bodyparserurlencodedoptions)
 oferece diversos meios de tratar os dados de payload das requisições HTTP.
 
 Dos verbos mais comuns, temos:
@@ -571,7 +566,7 @@ Dos verbos mais comuns, temos:
 - PUT
 - DELETE
 
-Destes, GET e DELETE não possuem payload. se precisarmos passar informação 
+Destes, GET e DELETE não possuem payload. se precisarmos passar informação
 via GET ou DELETE, devemos usar *path parameters* ou *query parameters*
 
 O **POST** é, por convenção (*e portanto não se espante se ver diferente por aí*),
@@ -579,10 +574,10 @@ usado para inserir novos dados. Já o **PUT** faz as vezes de *update*
 
 ## CSS
 
-O CSS (Cascading Style Sheet) serve para mudar a forma de apresentarmos um 
+O CSS (Cascading Style Sheet) serve para mudar a forma de apresentarmos um
 documento de marcação.
 
-No documento html de exemplo, usamos o atributo **style** para mudarmos a cor 
+No documento html de exemplo, usamos o atributo **style** para mudarmos a cor
 do parágrafo.
 
 Podemos definir estilos usando [os mais variados atributos](https://developer.mozilla.org/pt-BR/docs/Web/CSS/CSS_Reference).
@@ -608,7 +603,7 @@ Modifique mais uma vez o index.html:
 
       #nome {
         border: 5px double blue;
-        
+
       }
     </style>
   </head>
@@ -632,7 +627,7 @@ Modifique mais uma vez o index.html:
 </html>
 ```
 
-Podemos definir estilos dentro de tags `<style>`. É possível ainda adicionar 
+Podemos definir estilos dentro de tags `<style>`. É possível ainda adicionar
 um **link** para um arquivo css:
 
 ```html
@@ -679,19 +674,19 @@ h1 {
 
 #nome {
   border: 5px double blue;
-  
+
 }
 ```
 
 Criar estilos css demanda treinamento e percepção. Diferente da marcação, onde
 um parágrafo é um parágrafo e um botão é um botão, estilos demandam estudos
-visuais. 
+visuais.
 
-Para alguns profissionais isso vem naturalmente. 
+Para alguns profissionais isso vem naturalmente.
 
 Para outros, estudo e trabalho duro, :-)
 
-Felizmente, existem frameworks CSS prontos para usar. 
+Felizmente, existem frameworks CSS prontos para usar.
 
 Falaremos deles futuramente.
 
@@ -701,9 +696,9 @@ Falaremos deles futuramente.
 2. Crie usando knex migrations uma nova tabela chamada **produto**
 3. Adicione uma rota para listar produtos. Use o verbo GET
 4. adicione uma rota para inserir um produto. Use o verbo POST
-5. Crie na pasta publica servida pelo express um documento html e salve-o 
+5. Crie na pasta publica servida pelo express um documento html e salve-o
    como **index2.html**. Ele deve estar acessível em http://127.0.0.1:3000/index2.html
-6. Leia a documentação sobre CSS e pinte o fundo do documento de preto e 
+6. Leia a documentação sobre CSS e pinte o fundo do documento de preto e
    o texto (font-color) de branco.
-7. Comite tudo e suba para o github. Não esquecer de colocar no .gitignore o 
+7. Comite tudo e suba para o github. Não esquecer de colocar no .gitignore o
    que precisa ser ignorado.

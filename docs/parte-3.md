@@ -13,8 +13,8 @@ fazê-las com o axios.
 ### Instalando
 
 ```bash
-mkdir hello-js-seVV-ep03
-cd hello-js-seVV-ep03
+mkdir hello-js-se05-ep03
+cd hello-js-se05-ep03
 npm init -y
 npm install express --save
 touch index.js
@@ -150,7 +150,7 @@ api.get("/search/repositories", { params }).then(ret => console.log(ret.data))
 
 ## Exercícios de requisição à API's
 
-1. Crie o projeto hello-js-seVV-ep03 no seu github e faça o clone dele local
+1. Crie o projeto hello-js-se05-ep03 no seu github e faça o clone dele local
 2. Dê init no projeto npm dentro da pasta do repositório
 3. Instale no projeto o **express** e o **axios** como dependências.
    Não esquecer do --save

@@ -15,7 +15,7 @@ Precisamos persistir dados em uma base de dados relacional.
 
 ![db-1.png](img/prints-db-browser/db-1.png)
 
-- Aperte em "Novo banco de dados" e salve com um nome apropriado 
+- Aperte em "Novo banco de dados" e salve com um nome apropriado
   (ex: *contatos.db*)
 
 ![db-2.png](img/prints-db-browser/db-2.png)
@@ -30,7 +30,7 @@ Precisamos persistir dados em uma base de dados relacional.
 
 ![db-4.png](img/prints-db-browser/db-4.png)
 
-- Importante: nunca esquecer de "Escrever modificações", pois sem isso os 
+- Importante: nunca esquecer de "Escrever modificações", pois sem isso os
   dados não constarão no arquivo do banco
 
 ![db-5.png](img/prints-db-browser/db-5.png)
@@ -45,7 +45,7 @@ Precisamos persistir dados em uma base de dados relacional.
 - [MySQL](https://www.mysql.com/)
 - [Oracle](http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html)
 - [DB2](https://www.ibm.com/analytics/us/en/db2/trials/)
-- [H2](http://www.h2database.com/html/main.html) 
+- [H2](http://www.h2database.com/html/main.html)
 - [SQLServer](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads)
 
 *"Qual é o melhor?"*
@@ -54,7 +54,7 @@ Precisamos persistir dados em uma base de dados relacional.
 
 - Structured Query Language
 - Baseado na Algebra Relacional (matemática, meu chapa!)
-- Bom para produzir informação em cima de uma massa de dados 
+- Bom para produzir informação em cima de uma massa de dados
 - ACID (Atomicidade, Consistência, Isolamento e Durabilidade)
 
 Podemos dividir o SQL em DDL e DML
@@ -86,13 +86,13 @@ alter table contato add column telefonecontato varchar(255);
 drop table contato;
 ```
 
-- O sqlite possui limitações, mas outros bancos permitem *modificar* colunas, 
-  *remover* colunas e/ou restrições. 
+- O sqlite possui limitações, mas outros bancos permitem *modificar* colunas,
+  *remover* colunas e/ou restrições.
 
 #### Chave primária e chave estrangeira
 
-- O ID de uma determinada entidade (ler o 
-  [paradoxo do navio de teseu](https://pt.wikipedia.org/wiki/Navio_de_Teseu#O_paradoxo)) 
+- O ID de uma determinada entidade (ler o
+  [paradoxo do navio de teseu](https://pt.wikipedia.org/wiki/Navio_de_Teseu#O_paradoxo))
   diferencia de modo absoluto uma da outra
 - Entidades distintas podem se relacionar, então uma entidade guarda a chave da
   outra em uma de suas colunas
@@ -103,14 +103,14 @@ Exemplo:
 -- script-4.sql
 create table modelo(
   idmodelo integer not null primary key autoincrement,
-  descricaomodelo varchar(255) not null 
+  descricaomodelo varchar(255) not null
 );
 
 create table carro (
   idcarro integer not null primary key autoincrement,
   placa varchar(255) not null,
   idmodelo integer not null,
-  foreign key (idmodelo) references modelo(idmodelo) 
+  foreign key (idmodelo) references modelo(idmodelo)
 );
 ```
 
@@ -188,7 +188,7 @@ create table jogador (
 
 create table equipe (
   idequipe integer not null primary key autoincrement,
-  nomeequipe varchar (255) not null 
+  nomeequipe varchar (255) not null
 );
 
 create table escalacao (
@@ -204,7 +204,7 @@ create table escalacao (
 ```
 
 
-### Insert 
+### Insert
 
 ```sql
 -- script-8.sql
@@ -258,7 +258,7 @@ update equipe set nomeequipe = 'Alegoria da caverna' where idequipe = 3;
 ```
 
 - Update altera registros
-- É uma instrução destrutiva (**cuidado com os updates sem where!**) 
+- É uma instrução destrutiva (**cuidado com os updates sem where!**)
 - Preferível usar a chave primária nos updates sempre que possível
 
 ### Delete
@@ -269,7 +269,7 @@ delete from escalacao where idjogador = 4;
 ```
 
 - Dele remove registros
-- Operação destrutiva, **jamais esquecer a cláusula where** 
+- Operação destrutiva, **jamais esquecer a cláusula where**
 
 ### Select
 
@@ -340,11 +340,11 @@ select max(numerojogador) from jogador;
 
 ```sql
 -- script-18.sql
-select 
-  count(idjogador),numerojogador 
-from 
-  jogador 
-group by 
+select
+  count(idjogador),numerojogador
+from
+  jogador
+group by
   numerojogador
 ```
 
@@ -356,11 +356,11 @@ Junções servem para os dados de duas ou mais tabelas para produzir informaçã
 
 ```sql
 -- script-19.sql
-select 
-  nomeequipe, nomejogador 
-from 
+select
+  nomeequipe, nomejogador
+from
   equipe, escalacao, jogador
-where 
+where
   equipe.idequipe = escalacao.idequipe
   and escalacao.idjogador = jogador.idjogador
 ```
@@ -369,13 +369,13 @@ Ou ainda:
 
 ```sql
 -- script-20.sql
-select 
-  nomeequipe, nomejogador 
-from 
+select
+  nomeequipe, nomejogador
+from
   equipe
-natural join 
+natural join
   escalacao
-natural join 
+natural join
   jogador
 ```
 
@@ -388,13 +388,13 @@ das colunas são únicos em todo o esquema.
 
 ```sql
 -- script-21.sql
-select 
+select
   nomeequipe, count(idjogador)
-from 
+from
   equipe
-natural join 
+natural join
   escalacao
-natural join 
+natural join
   jogador
 group by nomeequipe
 ```
@@ -410,21 +410,21 @@ Mas o que é o **knex**? É um query builder.
 
 Usar uma linguagem dentro da outra é, por vezes, problemático.
 
-Em vez de usar SQL diretamente do lado javascript na forma de strings (que 
+Em vez de usar SQL diretamente do lado javascript na forma de strings (que
 podem conter erros e tal), usamos javascipt para construir as consultas.
 
 Na pasta do projeto npm (como? ainda não fez a pasta do projeto?) instale como
 dependências o knex e o sqlite3:
 
 ```bash
-mkdir hello-js-seVV-ep04
-cd hello-js-seVV-ep04
+mkdir hello-js-se05-ep04
+cd hello-js-se05-ep04
 npm init -y
 npm install knex sqlite3 --save
 touch index.js
 ```
 
-Sabe o banco de dados criado para rodarmos os exemplos de SQL? coloque-o 
+Sabe o banco de dados criado para rodarmos os exemplos de SQL? coloque-o
 dentro da pasta do projeto, ao lado do **index.js**
 
 Vamos acessar via javascript os dados desse banco usando o **knex**:
@@ -449,16 +449,16 @@ knex("jogador").select().then(ret => {
 Execute na linha de comando (**node index.js**)
 
 Pontos dignos de nota:
-- O require do knex é um pouco diferente. Como ele retorna uma função, já 
+- O require do knex é um pouco diferente. Como ele retorna uma função, já
   passamos o objeto de configuração ali mesmo e guardamos a instância do
   querybuilder
 - O knex guarda um pool de conexões (*long story, tell you later*) e por isso
-  o script não morre quando chega ao final. Dá um efeito parecido com o que 
+  o script não morre quando chega ao final. Dá um efeito parecido com o que
   vimos no script do express, mas por razões diferentes
-- Aquele **.then(...)** é a realização de uma 
+- Aquele **.then(...)** é a realização de uma
   [Promessa](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Promise).
   A primeira parte, **knex("jogador").select()**, retorna uma promessa
-- O argumento da realização da promessa é uma função.  
+- O argumento da realização da promessa é uma função.
 - Assim como no express, a natureza assíncrona do node está presente no knex
 
 Podemos inserir dados usando knex. Crie o index2.js:
@@ -501,7 +501,7 @@ exports.knex = require("knex")({
 })
 ```
 
-É recomendado, conforme dito anteriormente, ter as chaves na hora de um update 
+É recomendado, conforme dito anteriormente, ter as chaves na hora de um update
 ou na hora de um delete.
 
 ### Update
@@ -535,14 +535,14 @@ knex("jogador").del().where({idjogador}).then(ret => {
 
 O knex reflete todas as operações do SQL para dentro do javascript.
 
-Ele não te salva de ter que conhecer SQL de verdade, mas ajuda na hora de 
+Ele não te salva de ter que conhecer SQL de verdade, mas ajuda na hora de
 escrever programas mais limpos e de melhor entendimento.
 
 Mais sobre o knex na [documentação oficial](http://knexjs.org/).
 
 ## Exercícios Node.js + SQL
 
-1. Crie no github o projeto **hello-js-seVV-ep04** e dê checkout local
+1. Crie no github o projeto **hello-js-se05-ep04** e dê checkout local
 2. Inicialize o projeto npm e instale o knex e o sqlite3 como dependências
 3. Dentro do projeto dele crie o arquivo **esquema-inicial.sql**
 4. Use este arquivo sql para definir uma tabela chamada **contato**
@@ -550,18 +550,18 @@ Mais sobre o knex na [documentação oficial](http://knexjs.org/).
 6. Use o **dbbrowser** para executar o script e criar o banco **contatos.db**
 7. Garanta que o banco foi salvo dentro da pasta do projeto
 8. Crie um arquivo chamado **index.js**
-9. Ao executar o script, ele deverá receber até 2 argumentos. O primeiro será 
+9. Ao executar o script, ele deverá receber até 2 argumentos. O primeiro será
    a operação (insert, update, delete, list). O segundo argumento depende da
    operação
   1. Caso a operação seja insert fornecer nome,telefone separados por vírgula
   2. Caso seja um update, prover id,nome,telefone (ex: 1,joão,123456). Use a
-     função [split](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/split) 
+     função [split](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/split)
      das Strings do javascript para separar valores.
   3. Em caso de delete, fornecer apenas o id
   4. No select não é preciso um segundo argumento
 10. A saída, se houver, deve ser jogada no **console.log()**
-11. Insira pelo menos 3 contatos: 
-  1. maria,123 
+11. Insira pelo menos 3 contatos:
+  1. maria,123
   2. joão,456
   3. silvio,789
 12. Use o **dbrwowser** para conferir se os três contatos foram inseridos

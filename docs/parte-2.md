@@ -99,10 +99,10 @@ Um projeto npm normalmente possui um arquivo chamado **package.json**
 
 Criar um projeto npm é simples. Abra um terminal e:
 
-(lembrando que VV é o número da edição atual)
+(lembrando que 05 é o número da edição atual)
 ```bash
-mkdir hello-js-seVV-ep02
-cd hello-js-seVV-ep02
+mkdir hello-js-se05-ep02
+cd hello-js-se05-ep02
 npm init -y
 ```
 
@@ -448,7 +448,7 @@ Mais detalhes [aqui](http://es6-features.org)
 
 ## Exercícios básicos de Javascript
 
-1. Crie um repositório no github chamado **hello-js-seVV-ep02**
+1. Crie um repositório no github chamado **hello-js-se05-ep02**
 2. Faça o chekout local deste repositório
 3. Crie um script chamado **index.js** dentro deste projeto
 4. Neste script faça um código que teste se o valor passado por parâmetro para

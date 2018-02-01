@@ -1,17 +1,17 @@
 # Parte 6
 
-Precisamos recepcionar os dados que chegam do servidor usando javascript para 
+Precisamos recepcionar os dados que chegam do servidor usando javascript para
 compor dinamicamente a tela para apresentarmos os dados. Usaremos frameworks
-de vanguarda para simplificarmos o processo de aquisição e apresentação dos 
+de vanguarda para simplificarmos o processo de aquisição e apresentação dos
 dados recuperados e também enviaremos dados para o backend usando estas mesmas
 tecnologias front-end.
 
 ## Javascript no navegador de internet
 
-Após 20 horas rodando javascript no lado do servidor, vamos voltar para onde a 
+Após 20 horas rodando javascript no lado do servidor, vamos voltar para onde a
 linguagem nasceu.
 
-Antes de rodar javascript no navegador, você precisa de uma tag de script no 
+Antes de rodar javascript no navegador, você precisa de uma tag de script no
 seu documento HTML:
 
 ```html
@@ -32,12 +32,12 @@ Ao abrir este arquivo no navegador, o documento estará vazio. Mas se você insp
 
 Observe que este inspetor oferece muitas outras coisas além de um console, mas trataremos delas adiante.
 
-O javascript no browser está *embutido* (*embedded*), portanto não tem como 
+O javascript no browser está *embutido* (*embedded*), portanto não tem como
 usar diretamente argumentos ou variáveis de ambiente nele.
 
 ### Manipulando a DOM
 
-O javascript no browser pode, entretanto, manipular os elementos do documento 
+O javascript no browser pode, entretanto, manipular os elementos do documento
 HTML. Modifique o index.html para exemplificarmos isso:
 
 ```html
@@ -59,14 +59,14 @@ HTML. Modifique o index.html para exemplificarmos isso:
 
 Nunca foi tão fácil fazer um documento de 99 parágrafos, ;-)
 
-Assim como temos o process global no node, no javascript também temos alguns 
-objetos globais. o **document** é um deles. Ele nos dá acesso à àrvoce de 
+Assim como temos o process global no node, no javascript também temos alguns
+objetos globais. o **document** é um deles. Ele nos dá acesso à àrvoce de
 elementos do documento.
 
 ### Bibliotecas javascript através da internet
 
 Assim como vimos no node, podemos usar bibliotecas no lado do navegador também.
-Para tanto, basta incluirmos uma tag de script com o atributo **src** 
+Para tanto, basta incluirmos uma tag de script com o atributo **src**
 apontando para a biblioteca que desjamos usar.
 
 Exemplo:
@@ -104,15 +104,15 @@ Exemplo:
 </html>
 ```
 
-Note que o uso do axios é o mesmo no browser e no servidor. Nem toda biblioteca 
+Note que o uso do axios é o mesmo no browser e no servidor. Nem toda biblioteca
 javascript é assim, mas é um bônus muito bem vindo sempre.
 
-Se precisamos recuperar uma tag para usar no script, **document.getElementById** 
-é a função para a missão. A tag precisa, claro, ter um atributo **id** com um 
+Se precisamos recuperar uma tag para usar no script, **document.getElementById**
+é a função para a missão. A tag precisa, claro, ter um atributo **id** com um
 valor único (que não se repita) no documento.
 
-A tag de script que nos fornece o axios está num servidor externo. Esse tipo de 
-servidor, que fornece scripts e estilos css, chamamos de **CDN**, Content 
+A tag de script que nos fornece o axios está num servidor externo. Esse tipo de
+servidor, que fornece scripts e estilos css, chamamos de **CDN**, Content
 Delivery Network.
 
 Usar CDN's é vantajoso porque você pode testar muito rápido determinada solução ou experimentar uma biblioteca. Abaixo alguns serviços de CDN:
@@ -121,14 +121,14 @@ Usar CDN's é vantajoso porque você pode testar muito rápido determinada solu�
 - [jsdelivr](https://www.jsdelivr.com)
 - [unpkg](https://unpkg.com)
 
-A desvantagem é que sua aplicação fica dependente de um serviço de terceiro 
-para funcionar corretamente. Se, por exemplo, o [unpkg](https://unpkg.com/#/) 
+A desvantagem é que sua aplicação fica dependente de um serviço de terceiro
+para funcionar corretamente. Se, por exemplo, o [unpkg](https://unpkg.com/#/)
 cair, e se você usar bibliotecas diretamente de lá, seu aplicativo cai junto.
 
 ### Code snippets online
 
-Estes serviços são ideais para você experimentar bibliotecas front-end e 
-dividir com as pessoas na internet. Você pode usar as bilbiotecas servidas 
+Estes serviços são ideais para você experimentar bibliotecas front-end e
+dividir com as pessoas na internet. Você pode usar as bilbiotecas servidas
 pelos CDN's para testar as coisas mais rapidamente online.
 
 - [jsbin](https://jsbin.com)
@@ -171,44 +171,44 @@ Modifique o index.html:
     </script>
   </body>
 </html>
-``` 
+```
 
-Diferente de antigamente, não precisamos explicar muita coisa sobre como 
+Diferente de antigamente, não precisamos explicar muita coisa sobre como
 "grudar" uma variável numa interface. É o famoso [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel).
 
 Vários frameworks fazem isso, mas o vue é um dos mais simples de testar.
 
-A reatividade transparente é o que permite você só informar que o atributo 
+A reatividade transparente é o que permite você só informar que o atributo
 javascript 'name' e lá no HTML o atributo de tag "v-model" resolver o resto.
 
 ## Exercício
 
 Este exercício demanda tudo visto desde a aula 1.
 
-1. Crie no **github** o projeto **hello-js-seVV-ep06**
+1. Crie no **github** o projeto **hello-js-se05-ep06**
 2. Faça um **clone** local
 3. Dê **npm init** para criar o projeto
-4. Instale como dependências **sqlite3, knex, express, morgan e body-parser**. 
+4. Instale como dependências **sqlite3, knex, express, morgan e body-parser**.
    Não esquecer o **--save** e nem o **.gitignore** para não subir a **node_modules**
 5. Dê **knex init** neste projeto
 6. Crie um migrate chamado **esquema_inicial**
-7. Neste migrate, defina a criação de uma tabela de pessoas. A tabela deve 
-   conter um campo id, um campo nome, um campo telefone e um campo 
+7. Neste migrate, defina a criação de uma tabela de pessoas. A tabela deve
+   conter um campo id, um campo nome, um campo telefone e um campo
    data de nascimento. não esquecer de desfazer a tabela no down do migrate
 8. Crie um migrate chamado **carga_inicial**
-9. Crie um insert de 5 pessoas 
+9. Crie um insert de 5 pessoas
 10. Crie um **index.js** para definirmos uma instãncia do **express**
     (*const app = express()*)
 11. Adicione no express uma rota GET para listar pessoas (**"/listpessoas"**)
-12. Adicione no express uma rota GET para recuperar pelo id (que deve chegar 
+12. Adicione no express uma rota GET para recuperar pelo id (que deve chegar
     como variável de caminho (req.params)) exatamente uma pessoa, caso exista
-13. Adicione no express uma rota POST para inserir novas pessoas. O insert 
+13. Adicione no express uma rota POST para inserir novas pessoas. O insert
     deve retornar o id da pessoa recém-inserida no banco
 14. Adicione no express uma rota PUT para fazer o update de pessoas existentes
 15. Adicione no express uma rota DELETE que receba na url (req.params) o id da
     pessoa a ser removida, caso exista.
-16. Garanta que os migrates rodarão antes do express entrar no ar     
-17. Crie uma pasta chamada **public** 
+16. Garanta que os migrates rodarão antes do express entrar no ar
+17. Crie uma pasta chamada **public**
 18. Faça o express servir de modo estático o conteúdo desta pasta
 19. Crie um arquivo chamado **index.html**
 
@@ -216,11 +216,11 @@ Feito o exercício poderemos seguir para a próxima parte
 
 ## Axios client-side
 
-O axios no lado do browser, conforme apontamos, funciona igual ao lado do 
-servidor. Mas o browser, o navegador, possui limitações de segurança que o 
+O axios no lado do browser, conforme apontamos, funciona igual ao lado do
+servidor. Mas o browser, o navegador, possui limitações de segurança que o
 lado do servidor não possui.
 
-Exemplo: rode o index.js criado no exercício anterior. Em seguida, defina 
+Exemplo: rode o index.js criado no exercício anterior. Em seguida, defina
 dentro do index.html da pasta public o seguinte documento:
 
 ```html
@@ -243,7 +243,7 @@ dentro do index.html da pasta public o seguinte documento:
 </html>
 ```
 
-- Visite http://localhost:3000/ e inspecione o documento HTML. A saída deve 
+- Visite http://localhost:3000/ e inspecione o documento HTML. A saída deve
   ser parecida com esta:
 
 ![mesma-origem](img/cors/mesma-origem.png)
@@ -257,20 +257,20 @@ dentro do index.html da pasta public o seguinte documento:
 
 ### CORS
 
-Seu código não está errado. Isto é uma política de segurança dos navegadores 
+Seu código não está errado. Isto é uma política de segurança dos navegadores
 chamada [SOP - Same Origin Policy](https://en.wikipedia.org/wiki/Same-origin_policy).
-Em resumo o navegador rejeita dados que o javascript peça caso eles não venham 
+Em resumo o navegador rejeita dados que o javascript peça caso eles não venham
 do mesmo servidor do documento HTML.
 
-A boa notícia é que existe o [CORS - Cross-Origin Resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing). 
-Com o cors podemos liberar nosso servidor para fornecer dados para qualquer 
+A boa notícia é que existe o [CORS - Cross-Origin Resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing).
+Com o cors podemos liberar nosso servidor para fornecer dados para qualquer
 destino ou para destinos seletos.
 
-Para colocar o cors no express, instale o pacote npm a seguir e aplique-o no 
+Para colocar o cors no express, instale o pacote npm a seguir e aplique-o no
 **index.js** criado no exercício anterior:
 
 ```bash
-cd hello-js-seVV-ep06
+cd hello-js-se05-ep06
 npm install cors --save
 ```
 
@@ -286,7 +286,7 @@ const app = express()
 
 app.use(cors())
 app.use(morgan("dev"))
-app.use(bodyParser.json()) // what's this? what's this? 
+app.use(bodyParser.json()) // what's this? what's this?
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static("public"))
 
@@ -321,7 +321,7 @@ knex.migrate.latest()
 
 ```
 
-Após a alteração, mesmo com a origem diferente, devemos ser capazes de 
+Após a alteração, mesmo com a origem diferente, devemos ser capazes de
 recuperar os dados!
 
 ![com-cors](img/cors/com-cors.png)
@@ -347,13 +347,13 @@ new Vue({
   }
 })
 ```
-6. Usando o que você aprendeu sobre o **v-for**, crie uma [lista html](https://developer.mozilla.org/pt-BR/docs/Web/HTML/Element/ul) 
+6. Usando o que você aprendeu sobre o **v-for**, crie uma [lista html](https://developer.mozilla.org/pt-BR/docs/Web/HTML/Element/ul)
 para mostrar o nome das pessoas
-7. Acima da lista, crie um formulário com três campos: 
+7. Acima da lista, crie um formulário com três campos:
   - nome
   - telefone
   - nascimento
-8. Nos atributos do formulário, em vez de action ou method, defina um 
+8. Nos atributos do formulário, em vez de action ou method, defina um
    atributo especial do vue, o [@submit.prevent](https://vuejs.org/v2/guide/events.html#Event-Modifiers).
 9. Modifique o viewmodel para ter uma ação para este submit. Exemplo:
 ```html
@@ -365,7 +365,7 @@ para mostrar o nome das pessoas
   <input type="submit"/>
 </form>
 <!-- resto do documento -->
-``` 
+```
 ```javascript
 // resto do snippet de dentro do documento
 new Vue({
@@ -388,9 +388,9 @@ new Vue({
 10. Leia a [documentação do axios](https://github.com/axios/axios#request-method-aliases) e veja como fazer um post
 11. Verifique se os dados estão sendo salvos no banco.
 
-Voilá! 
+Voilá!
 
 Devemos ter um client-side consumindo duas chamadas distintas de API!
 
-Como desafio extra fica a reorganização da instância do vue de modo que, 
+Como desafio extra fica a reorganização da instância do vue de modo que,
 ao salvar uma pessoa, a lista de pessoas seja recarregada.
