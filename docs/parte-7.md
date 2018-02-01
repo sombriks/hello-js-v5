@@ -87,16 +87,16 @@ vimosanteriormente:
 
 ```javascript
 // anothermodule.js
-
+exports.bar = x => x * x * x
 ```
 
 ```javascript
 // mymodule1.js
-
+module.exports = x => console.log(x * x)
 ```
 
 O main.js faz as vezes de "ponto de entrada" (i.e. aquele script que era 
-passado para o node. *mas aqui não tem node*):
+passado para o node. *Mas aqui não tem node*):
 
 ```javascript
 // main.js
@@ -105,14 +105,99 @@ const bar = require("./anothermodule").bar
 
 foo(2)
 console.log(bar(3))
-
 ```
+
+Agora é só voltar pro console e usar o browserify para "empacotar" tudo:
+
+```bash
+browserify src/main.js -o build.js
+```
+
+Lembrando que, no caso do windows, o browserify está em
+**.\node_modules\.bin\browserify**
 
 ## Exercício de build com browserify
 
+1. Crie pelo **github** o repositório **hello-js-seVV-ep07**
+2. Faça checkout
+3. Dentro da pasta do repositório, crie uma pasta chamada **se05ep07-client**
+4. Entre nesta pasta e dê **npm init -y** nela. 
+5. Crie um **index.html** dentro de *se05ep07-client* com a seguinte estrutura:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hello browserify!</title>
+</head>
+<body>
+  <div id="mountpoint"></div>
+  <script src="build.js"></script>
+</body>
+</html>
+```
+6. Crie uma pasta **src** e dentro dela crie um arquivo chamado **main.js**
+7. Modifique no **package.json** a sessão de scripts. Deve ficar mais ou menos assim:
+```json
+{
+  "name": "se05ep07-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build.js",
+  "scripts": {
+    "build": "browserify src/main.js -o build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^15.2.0"
+  }
+}
+```
+8. Experimente fazer o build do projeto através do script criado:
+```bash
+npm run build
+```
+
 ## Projeto fullstack com browserify
 
+Daqui por diante, **a raíz do repositório não é mais a raíz do projeto**.
+
+O repositório contará com dois projetos distintos: um "-client" e um "-service".
+
+Esta separação é benéfica, pois embora seja possível usar a pasta static do 
+express para servir recursos para o navegador, a ideia de um projeto dentro do
+outro deve ser evitada enquanto possível.
+
+Adicionalmente, se usássemos o npm dentro da pasta static, teríamos problemas 
+para não se perder entre os artefatos. *Onde é servidor? Onde é cliente?*
+
+Mantendo os dois projetos, frontend e backend, dentro do mesmo repositório 
+git, entretanto, sugere para quem baixa o repositório que, em teoria, aquela 
+versão do cliente é compatível com aquela versão do serviço.
+
 ## Budo e nodemon
+
+Um dos passos mais aborrecidos no dia a dia de um desenvolvedor é testar as 
+alterações de código ao vivo. 
+
+O ciclo alterar - recarregar - visualizar é responsável, muitas vezes, por 
+30% do tempo gasto escrevendo uma nova feature. 
+
+Há tecnologias, inclusive, que os servidores levam até 3 minutos para mostrar 
+o resultado da alteração.
+
+No node, felizmente, levamos apenas alguns segundos, mas queremos melhor, 
+queremos mais.
+
+### Seção scripts do package.json
+
+Vimos no exercício anterior um jeito de usar o package.json para guardar o 
+comando de empacotamento do browserify.
+
+A seção de scripts serve para rodar comandos. A diferença é que os comandos 
+dentro da seção de scripts tem direito àquela pasta **.bin** que fica 
+escondida dentro da **node_modules**.
 
 ## vue-material
 
