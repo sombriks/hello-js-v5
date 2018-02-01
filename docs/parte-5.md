@@ -246,7 +246,7 @@ const estados = [
 
 exports.up = knex => knex("state").insert(estados)
 
-exports.down = knex => knex("country").del()
+exports.down = knex => knex("state").del()
   .whereIn("idstate", estados.map(e => e.idstate))
 ```
 
