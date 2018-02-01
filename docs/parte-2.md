@@ -58,7 +58,7 @@ console.log("FOO: %s, BAR: %s!",process.env.FOO,process.env.BAR)
 Daí:
 
 ```bash
-FOO=hello BAR=world node parameters.js Yuri
+FOO=hello BAR=world node envparams.js
 FOO: hello, BAR: world!
 ```
 
