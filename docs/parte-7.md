@@ -192,12 +192,125 @@ queremos mais.
 
 ### Seção scripts do package.json
 
+Antes de usarmos os reloaders, vamos tratar de uma técnica essencial para isso
+tudo funcionar.
+
 Vimos no exercício anterior um jeito de usar o package.json para guardar o 
 comando de empacotamento do browserify.
 
 A seção de scripts serve para rodar comandos. A diferença é que os comandos 
 dentro da seção de scripts tem direito àquela pasta **.bin** que fica 
 escondida dentro da **node_modules**.
+
+Por exemplo, se eu quiser colocar a chamada do **knex** num **package.json**,
+ficaria assim:
+
+```json
+{
+  "name": "se05ep07-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "knex": "knex",
+    "dev": "nodemon src/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "knex": "^0.14.2",
+    "morgan": "^1.9.0",
+    "sqlite3": "^3.1.13"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.11"
+  }
+}
+```
+
+E o uso deste script npm ficaria assim:
+
+```bash
+npm run knex -- migrate:make esquema_inicial
+```
+
+Como o knex depende de argumentos para funcionar corretamente, é preciso 
+passar um "--" (dois traços) para indicar que os argumentos seguintes são 
+para o programa que o script invoca.
+
+Outro ponto muito valioso a ser indicado é que o package.json é um arquivo no
+formato [JSON](https://www.json.org) no modo mais estrito possível. Não dá 
+inserir comentários e nem colocar vírgulas demais ou de menos. Chaves precisam
+ser strings válidas.
+
+### Exercício
+
+1. Na pasta do repositório **hello-js-seVV-ep07** crie uma pasta 
+   chamada **se05ep07-service**
+2. Entre nessa pasta e dê npm init nela.
+3. Instale as dependências server-side **sqlite knex express body-parser cors**
+   **morgan** e não esqueça do --save
+4. Instale uma dependência chamada **nodemon** e salve com **--save-dev** 
+5. modifique o package.json para ter na seção de scripts o knex e o nodemon
+   conforme visto no exemplo anterior
+6. Crie uma pasta chamada **src** e dentro dela um arquivo chamado **main.js**
+7. Dê um **npm run knex -- init** na raíz do **projeto** service. 
+   Não confundir com a raís do **repositório**
+
+Daqui por diante, quando quisermos rodar um projeto javascript, sempre 
+digitaremos no console um **npm run dev** e vamos esperar que tudo funcione :-)
+
+### nodemon
+
+O [nodemon](https://nodemon.io/) vigia alterações nos scripts e recarrega 
+sozinho o seu serviço.
+
+Em vez de alterar o script, voltar ao console, matar o script e chamar 
+novamente, chame o nodemon uma vez que ele fica recarregando os scripts 
+por você de modo transparente.
+
+Lembre-se, entretanto, de matar o nodemon quando estiver criando arquivos de
+migração. Se vocẽ criar um arquivo de migração enquanto o nodemon estiver em
+operação, e se o seu serviço tiver aquele gancho pra rodar as migrações 
+automaticamente, ele tentará rodar migrações vazias no seu banco, e isso é um 
+grande aborrecimento.
+
+### budo
+
+Entre no projeto cliente e instale a dependência de desenvolvimento abaixo:
+
+```bash
+cd se05ep07-client
+npm install budo --save-dev
+```
+
+Em seguida, modifique seu package.json para conter o seguinte script:
+
+```json
+{
+  "name": "se05ep07-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build.js",
+  "scripts": {
+    "build": "browserify src/main.js -o build.js",
+    "dev": "budo src/main.js:build.js -o -l"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^15.2.0",
+    "budo": "^11.0.1"
+  }
+}
+```
+
+De maneira análoga ao que
 
 ## vue-material
 
