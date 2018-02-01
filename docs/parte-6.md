@@ -189,7 +189,7 @@ Este exercício demanda tudo visto desde a aula 1.
 2. Faça um **clone** local
 3. Dê **npm init** para criar o projeto
 4. Instale como dependências **sqlite3, knex, express, morgan e body-parser**. 
-   Não esquecer o **--save**
+   Não esquecer o **--save** e nem o **.gitignore** para não subir a **node_modules**
 5. Dê **knex init** neste projeto
 6. Crie um migrate chamado **esquema_inicial**
 7. Neste migrate, defina a criação de uma tabela de pessoas. A tabela deve 
@@ -210,7 +210,7 @@ Este exercício demanda tudo visto desde a aula 1.
 16. Garanta que os migrates rodarão antes do express entrar no ar     
 17. Crie uma pasta chamada **public** 
 18. Faça o express servir de modo estático o conteúdo desta pasta
-19. Crie um arquivo chamado index.html
+19. Crie um arquivo chamado **index.html**
 
 Feito o exercício poderemos seguir para a próxima parte
 
@@ -243,11 +243,154 @@ dentro do index.html da pasta public o seguinte documento:
 </html>
 ```
 
-- Visite http://localhost:3000/ e inspecione o documento HTML
-- Agora visite http://127.0.0.1:3000/ e inspecione o documento também
+- Visite http://localhost:3000/ e inspecione o documento HTML. A saída deve 
+  ser parecida com esta:
+
+![mesma-origem](img/cors/mesma-origem.png)
+
+- Agora visite http://127.0.0.1:3000/ e inspecione o documento também. A saída
+  deve ser parecida com esta:
+
+![origem-diferente](img/cors/origem-diferente.png)
+
 - *Notou alguma diferença?*
 
 ### CORS
 
+Seu código não está errado. Isto é uma política de segurança dos navegadores 
+chamada [SOP - Same Origin Policy](https://en.wikipedia.org/wiki/Same-origin_policy).
+Em resumo o navegador rejeita dados que o javascript peça caso eles não venham 
+do mesmo servidor do documento HTML.
+
+A boa notícia é que existe o [CORS - Cross-Origin Resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing). 
+Com o cors podemos liberar nosso servidor para fornecer dados para qualquer 
+destino ou para destinos seletos.
+
+Para colocar o cors no express, instale o pacote npm a seguir e aplique-o no 
+**index.js** criado no exercício anterior:
+
+```bash
+cd hello-js-seVV-ep06
+npm install cors --save
+```
+
+```javascript
+// index.js
+const knex = require("knex")(require("./knexfile").development)
+const express = require("express")
+const morgan = require("morgan")
+const bodyParser = require("body-parser")
+const cors = require("cors")
+
+const app = express()
+
+app.use(cors())
+app.use(morgan("dev"))
+app.use(bodyParser.json()) // what's this? what's this? 
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static("public"))
+
+const err = res => err => res.status(500).send(err)
+
+app.get("/listapessoas", (req, res) => {
+  knex("pessoa").select()
+    .then(ret => res.send(ret)).catch(err)
+})
+app.get("/:idpessoa", (req, res) => {
+  const idpessoa = req.params.idpessoa
+  knex("pessoa").select().where({ idpessoa })
+    .then(([pessoa]) => res.send(pessoa)).catch(err)
+})
+app.post("/save", (req, res) => {
+  knex("pessoa").insert(req.body, "idpessoa")
+    .then(ret => res.send(ret)).catch(err)
+})
+app.put("/save", (req, res) => {
+  const idpessoa = req.body.idpessoa
+  knex("pessoa").update(req.body).where({ idpessoa })
+    .then(ret => res.send(ret)).catch(err)
+})
+app.delete("/:idpessoa", (req, res) => {
+  const idpessoa = req.params.idpessoa
+  knex("pessoa").del().where({ idpessoa })
+    .then(ret => res.send(ret)).catch(err)
+})
+
+knex.migrate.latest()
+  .then(_ => app.listen(3000, console.log("server online!")))
+
+```
+
+Após a alteração, mesmo com a origem diferente, devemos ser capazes de 
+recuperar os dados!
+
+![com-cors](img/cors/com-cors.png)
+
 ## Exercício axios client-side chamando server-side
 
+1. Leia sobre como funciona o [v-for do vue](https://vuejs.org/v2/guide/list.html#Mapping-an-Array-to-Elements-with-v-for)
+2. No **index.html** do exercício anterior, adicione um cdn que ofereça o vue
+   em sua versão 2 mais recente
+3. Leia sobre [created](https://vuejs.org/v2/api/#created) e [data](https://vuejs.org/v2/api/#Options-Data)
+4. Dentro da seção created, consulte usando o **axios** a listagem de pessoas
+5. A lista de pessoas recuperadas pelo axios deve ser atribuída a um valor na
+   sessão data da instância do vue. Exemplo:
+```javascript
+// snippet de dentro do documento
+new Vue({
+  data:{
+    lista:null
+  },
+  created(){
+    api.get("/listapessoas")
+      .then(ret => this.lista = ret.data)
+  }
+})
+```
+6. Usando o que você aprendeu sobre o **v-for**, crie uma [lista html](https://developer.mozilla.org/pt-BR/docs/Web/HTML/Element/ul) 
+para mostrar o nome das pessoas
+7. Acima da lista, crie um formulário com três campos: 
+  - nome
+  - telefone
+  - nascimento
+8. Nos atributos do formulário, em vez de action ou method, defina um 
+   atributo especial do vue, o [@submit.prevent](https://vuejs.org/v2/guide/events.html#Event-Modifiers).
+9. Modifique o viewmodel para ter uma ação para este submit. Exemplo:
+```html
+<!-- resto do documento -->
+<form @submit.prevent="dosave">
+  <label><input v-model="pessoa.nomepessoa"/></label><br/>
+  <label><input v-model="pessoa.telefonepessoa"/></label><br/>
+  <label><input v-model="pessoa.dtnascimentopessoa"/></label><br/>
+  <input type="submit"/>
+</form>
+<!-- resto do documento -->
+``` 
+```javascript
+// resto do snippet de dentro do documento
+new Vue({
+  data:{
+    lista:null,
+    pessoa:{nome:"",}
+  },
+  created(){
+    api.get("/listapessoas")
+      .then(ret => this.lista = ret.data)
+  },
+  methods:{
+    dosave(){
+      // passo 10
+    }
+  }
+})
+// resto do snippet de dentro do documento
+```
+10. Leia a [documentação do axios](https://github.com/axios/axios#request-method-aliases) e veja como fazer um post
+11. Verifique se os dados estão sendo salvos no banco.
+
+Voilá! 
+
+Devemos ter um client-side consumindo duas chamadas distintas de API!
+
+Como desafio extra fica a reorganização da instância do vue de modo que, 
+ao salvar uma pessoa, a lista de pessoas seja recarregada.
