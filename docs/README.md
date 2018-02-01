@@ -63,22 +63,20 @@ habilidades exercitadas nas partes 1 e 2 serão requisitadas. E por aí vai.
 - [Parte 5](/parte-5) (4h)
   - Knex migrations
   - Combinando knex, knex migrations e express
-  - Exercício
-- [Parte 6](/parte-6) (4h)
   - Arquivos estáticos com express
   - HTML
   - CSS
+  - Exercício
+- [Parte 6](/parte-6) (4h)
   - Javascript no navegador de internet
-  - Exercício
   - Introdução ao Vue.js
-  - Exercício
   - Axios client-side
   - Exercício axios client-side chamando server-side
 - [Parte 7](/parte-7) (4h)
   - Browserify
-  - Projeto fullstack com browserify
   - Exercício de build com browserify
-  - Budo
+  - Projeto fullstack com browserify
+  - Budo e nodemon
   - vue-material
   - Exercício protótipo fullstack
   - Projeto client-side com SPA (single page application)

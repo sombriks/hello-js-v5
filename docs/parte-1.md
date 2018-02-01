@@ -121,6 +121,14 @@ git checkout master
 git merge feature/326-create-magic-function
 ```
 
+Quer remover o branch? opção **-d**
+
+```bash
+# removing locally
+git branch -d feature/326-create-magic-function 
+# remove from remote 'origin'
+git push origin  --delete feature/326-create-magic-function
+```
 
 ![gitflow-atlassian](img/gitflow.svg)
 (By Atlassian)
@@ -143,6 +151,31 @@ E como eu posso me aproveitar disso?
 
 * Portfólio
 * GH Pages (`you`.github.io)
+
+### Git clone 
+
+Em vez de criar primeiro a pasta local, dar git init e configurar o remote, 
+você pode criar o projeto pelo github.
+
+No menu superior, selecione *new repository*:
+
+![gh-1](img/prints-github/gh-1.png)
+
+Defina um nome para o seu projeto:
+
+![gh-2](img/prints-github/gh-2.png)
+
+Em *quick setup*, tem um endereço https. Copie este endereço:
+
+![gh-3](img/prints-github/gh-4.png)
+
+Abra um terminal e use o comando **git clone <endereço>**:
+
+![gh-5](img/prints-github/gh-5.png)
+
+Ao terminar de criar a pasta, entre nela. Observe que já vem um *origin* devidamente configurado.
+
+![gh-6](img/prints-github/gh-6.png)
 
 ## Consoles
 
