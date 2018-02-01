@@ -310,9 +310,29 @@ Em seguida, modifique seu package.json para conter o seguinte script:
 }
 ```
 
-De maneira análoga ao que
+De maneira análoga ao que vimos no nodemon, o budo verifica as modificações 
+nos scripts, nos documentos e arquivos de estilo.
+
+Na verdade o nodemon faz umas coisas a mais, como por exemplo "inventar" um
+index.html, mas falamos disso no futuro. *Ou não*.
+
+Do mesmo modo que criamos um script dev no lado do serviço, temos um script 
+dev no lado do cliente.
+
+Não importando o tipo de projeto, sempre vamos rodar ele com:
+
+```bash
+npm run dev
+```
 
 ## vue-material
+
+Agora que nossos projetos tem um ensaio de estrutura, podemos arriscar usar 
+tecnologias que procuram nos salvar algum tempo.
+
+O [vue-material](https://vuematerial.io/components/app) é um framework de 
+componentes vue que implementa a especificação 
+[material design](https://material.io/guidelines/) do google.
 
 ## Exercício protótipo fullstack
 
