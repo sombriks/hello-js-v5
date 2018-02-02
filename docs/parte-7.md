@@ -590,6 +590,100 @@ new Vue({
 })
 ```
 
+## Projeto client-side com SPA (single page application)
+
+Um aplicativo completo precisará pode fazer bom uso de esquemas de navegação.
+
+Suponha um sistema de festas e convidados. 
+- Poderemos:
+  - listar festas
+  - listar convidados
+  - criar festa
+  - criar convidado
+  - indicar quais convidados irão a quais festas
+
+Usando as habilidades de modelagem de banco e o knex, podemos realizar um 
+esquema que atenda essa necessidade.
+
+Usando o vue e o axios podemos criar 5 componentes que consultem o serviço 
+criado com express e assim gerir festas, convidados e convites.
+
+Usando o vue-router podemos navegar por entre estes componentes.
+
+O vue-router é o que possibilita organizarmos estes componentes em uma **SPA**.
+
+SPA significa **Single Page Application**
+
+É basicamente mais um truque para não recarregarmos a página.
+
+no projeto cliente instale o vue-router:
+
+```bash
+cd se05ep07-client
+npm install vue-router --save 
+```
+
+Em seguida, crie um componente vue para gerir as rotas. Chame-o de **spa.vue**:
+
+```html
+<template>
+  <div>
+    <h1>BALADA VUE</h1>
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+const VueRouter = require("vue-router");
+
+module.exports = {
+  name: "Spa",
+  router: new VueRouter({
+    routes: [
+      { path: "/lista-festas", component: require("lista-festas.vue") },
+      { path: "/criar-festa", component: require("criar-festa.vue") }
+    ]
+  })
+};
+</script>
+
+<style>
+
+</style>
+```
+
+Nota: aquela div é necessária porque os templates dos documentos .vue só podem 
+ter um elemento raíz.
+
+No main.js é preciso fazer o *install* do VueRouter:
+
+```javascript
+// main.js
+require("./main.css")
+
+const Vue = require("vue")
+const VueRouter = require("vue-router")
+const VueMaterial = require("vue-material")
+
+Vue.use(VueRouter)
+Vue.use(VueMaterial)
+
+new Vue({
+  el: "#mountpoint",
+  render: r => r(require("./hello.vue"))
+})
+```
+
+Nas rotas do *spa.vue* indicamos dois componentes. Vamos criar os dois:
+
+```html
+
+```
+
+```html
+
+```
+
+
 ## Exercício protótipo fullstack
 
-## Projeto client-side com SPA (single page application)
