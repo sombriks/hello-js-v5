@@ -747,6 +747,7 @@ npm i axios --save
 
 ```
 
+Você pode visitar o componente em http://127.0.0.1:9966/#/lista-festas
 
 ## Exercício protótipo fullstack
 
