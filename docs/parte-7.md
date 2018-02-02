@@ -662,7 +662,8 @@ module.exports = {
 Nota: aquela div é necessária porque os templates dos documentos .vue só podem 
 ter um elemento raíz.
 
-No main.js é preciso fazer o *install* do VueRouter:
+No main.js é preciso fazer o *install* do VueRouter e apontarmos a render para 
+o componente da SPA:
 
 ```javascript
 // main.js
@@ -677,7 +678,7 @@ Vue.use(VueMaterial)
 
 new Vue({
   el: "#mountpoint",
-  render: r => r(require("./hello.vue"))
+  render: r => r(require("./spa.vue"))
 })
 ```
 
@@ -687,9 +688,9 @@ Nas rotas do *spa.vue* indicamos dois componentes. Vamos criar os dois:
 <template>
   <md-list>
     <!-- lista-festas.vue -->
-    <md-subhead>
+    <md-subheader>
       Lista de festas
-    </md-subhead>
+    </md-subheader>
     <md-list-item v-for="f in festas" :key="f.idfesta">
       {{f.nomefesta}}
     </md-list-item>
@@ -733,6 +734,14 @@ module.exports = {
 </style>
 
 ```
+
+Estes componentes vão usar o axios no lado do cliente. Instale ele:
+
+```bash
+cd se05ep07-client
+npm i axios --save
+```
+ 
 
 ```html
 
