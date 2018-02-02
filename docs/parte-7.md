@@ -623,6 +623,11 @@ SPA significa **Single Page Application**
 
 É basicamente mais um truque para não recarregarmos a página.
 
+### O vue-router
+
+A biblioteca do vue que nos ajudará a montar uma SPA é o 
+[vue-router](https://router.vuejs.org/en/essentials/navigation.html)
+
 no projeto cliente instale o vue-router:
 
 ```bash
@@ -732,7 +737,48 @@ module.exports = {
 <style>
 
 </style>
+```
 
+```html
+<template>
+  <form @submit.prevent="dosave">
+    <md-input-container>
+      <label>Nome da festa</label>
+      <md-input v-model="festa.nomefesta" required></md-input>
+    </md-input-container>
+    <md-button type="submit" class="md-primary md-raised">Salvar</md-button>
+  </form>
+</template>
+
+<script>
+const axios = require("axios");
+const api = axios.create({
+  baseURL: "htto://127.0.0.1:3000"
+});
+module.exports = {
+  name: "CriarFesta",
+  data: _ => ({festa:{nomefesta:""}}),
+  methods: {
+    dosave() {
+      api
+        .post("/festa/save", this.festa)
+        .then(ret => {
+          if (ret.status != 200) throw ret;
+          this.festas = ret.data;
+          this.$router.push("/lista-festas")
+        })
+        .catch(err => {
+          console.log(err);
+          alert("Erro ao salvar festa");
+        });
+    }
+  }
+};
+</script>
+
+<style>
+
+</style>
 ```
 
 Estes componentes vão usar o axios no lado do cliente. Instale ele:
@@ -740,14 +786,37 @@ Estes componentes vão usar o axios no lado do cliente. Instale ele:
 ```bash
 cd se05ep07-client
 npm i axios --save
-```
- 
+``` 
 
-```html
+Você pode visitar o componente em 
+- http://127.0.0.1:9966/#/lista-festas
+- http://127.0.0.1:9966/#/criar-festa
 
-```
+### Organizando as rotas de serviço 
 
-Você pode visitar o componente em http://127.0.0.1:9966/#/lista-festas
+Os dois componentes fazem uso de rotas que não definimos ainda no nosso serviço.
+
+Como este serviço é mais elaborado (festas, convidados, convites!), vamos 
+organizar o serviço também.
+
+Crie no projeto **se05ep07-service** um módulo chamado **festa.js** dentro da
+pasta **src**:
+
+```javascript
+// src/festa.js
+const express = require("express")
+// crie um módulo pra fazermos a configuração do knex apenas uma vez
+const knex = require("./config").knex
+
+const router = express.Router()
+
+router.get("/list")
+
+exports.router = router
+
+
+``` 
+
 
 ## Exercício protótipo fullstack
 
