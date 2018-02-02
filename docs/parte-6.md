@@ -125,6 +125,55 @@ A desvantagem é que sua aplicação fica dependente de um serviço de terceiro
 para funcionar corretamente. Se, por exemplo, o [unpkg](https://unpkg.com/#/)
 cair, e se você usar bibliotecas diretamente de lá, seu aplicativo cai junto.
 
+### CDD e frameroks CSS
+
+Você pode importar estilos bem trabalhados e elegantes usando os CDN's.
+Abaixo um exemplo de como usar um framework CSS via CDN:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.js"></script>
+  </head>
+  <!-- https://bulma.io/documentation/ -->
+  <body class="box">
+    <div class="tile is-ancestor is-vertical">
+      <div class="tile notification is-primary">
+        <p class="title">Issues</p>
+      </div>
+      <div class="tile notification is-primary">
+          <ul id="catlist"></ul>
+      </div>
+    </div>
+    <!-- https://cdnjs.com/libraries/axios -->
+    <script>
+      const api = axios.create({
+        baseURL:"https://api.github.com"
+      })
+      // https://developer.github.com/v3/issues/#issues
+      api.get("/repos/sombriks/hello-js-v5/issues").then(ret => {
+        console.log(ret)
+        ret.data.map(e => {
+          const li = document.createElement("li")
+          li.innerHTML = `<a href="${e.url}">${e.title}</a>`
+          document.getElementById("catlist").appendChild(li)
+        })
+      }).catch(err => {
+        console.log(err)
+        const li = document.createElement("li")
+        li.innerHTML = "erro!"
+        document.getElementById("catlist").appendChild(li)
+      })
+    </script>
+  </body>
+</html>
+```
+
+No exemplo usamos um framework css chamado 
+[bulma](https://bulma.io/documentation/overview/start/).
+
 ### Code snippets online
 
 Estes serviços são ideais para você experimentar bibliotecas front-end e
