@@ -158,6 +158,11 @@ Lembrando que, no caso do windows, o browserify está em
 ```bash
 npm run build
 ```
+9. No **main.js** adicione a seguinte linha de javascript:
+```javascript
+alert("hello from browserify")// alert só é válido no browser
+```
+
 
 ## Projeto fullstack com browserify
 
@@ -259,7 +264,7 @@ ser strings válidas.
    conforme visto no exemplo anterior
 6. Crie uma pasta chamada **src** e dentro dela um arquivo chamado **main.js**
 7. Dê um **npm run knex -- init** na raíz do **projeto** service.
-   Não confundir com a raís do **repositório**
+   Não confundir com a raíz do **repositório**
 
 Daqui por diante, quando quisermos rodar um projeto javascript, sempre
 digitaremos no console um **npm run dev** e vamos esperar que tudo funcione :-)
@@ -333,6 +338,27 @@ tecnologias que procuram nos salvar algum tempo.
 O [vue-material](https://vuematerial.io/components/app) é um framework de 
 componentes vue que implementa a especificação 
 [material design](https://material.io/guidelines/) do google.
+
+Para instalar, entre no projeto cliente (**se05ep07-client**) e:
+
+```bash
+npm install vue vue-material --save
+```
+
+Em seguida, abra o **src/main.js** e faça uso do vue por lá:
+
+```javascript
+// main.js
+const Vue = require("vue")
+const VueMaterial = require("vue-material")
+
+Vue.use(VueMaterial)
+
+new Vue({
+  el:"#mountpoint"
+})
+```
+
 
 ## Exercício protótipo fullstack
 
