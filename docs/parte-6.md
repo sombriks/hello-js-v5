@@ -246,7 +246,7 @@ Este exercício demanda tudo visto desde a aula 1.
    data de nascimento. não esquecer de desfazer a tabela no down do migrate
 8. Crie um migrate chamado **carga_inicial**
 9. Crie um insert de 5 pessoas
-10. Crie um **index.js** para definirmos uma instãncia do **express**
+10. Crie um **index.js** para definirmos uma instância do **express**
     (*const app = express()*)
 11. Adicione no express uma rota GET para listar pessoas (**"/listpessoas"**)
 12. Adicione no express uma rota GET para recuperar pelo id (que deve chegar
