@@ -78,9 +78,9 @@ habilidades exercitadas nas partes 1 e 2 serão requisitadas. E por aí vai.
   - Projeto fullstack com browserify
   - Budo e nodemon
   - vue-material
+  - Render function e single file components
   - Exercício protótipo fullstack
   - Projeto client-side com SPA (single page application)
-  - Render function e single file components
 - [Parte 8](/parte-8) (4h)  
   - Exercício SFC + SPA com backend express+knex
   - Conceitos de desenvolvimento fullstack

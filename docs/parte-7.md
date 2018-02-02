@@ -158,11 +158,18 @@ Lembrando que, no caso do windows, o browserify está em
 ```bash
 npm run build
 ```
-9. No **main.js** adicione a seguinte linha de javascript:
+9. No **main.js** adicione a seguinte linha de javascript: 
+
 ```javascript
+// main.js
+const foo = require("./mymodule1")
+const bar = require("./anothermodule").bar
+
+foo(2)
+console.log(bar(3))
+
 alert("hello from browserify")// alert só é válido no browser
 ```
-
 
 ## Projeto fullstack com browserify
 
@@ -260,11 +267,34 @@ ser strings válidas.
 3. Instale as dependências server-side **sqlite knex express body-parser cors**
    **morgan** e não esqueça do --save
 4. Instale uma dependência chamada **nodemon** e salve com **--save-dev**
-5. modifique o package.json para ter na seção de scripts o knex e o nodemon
-   conforme visto no exemplo anterior
+5. modifique o **package.json** para ter na seção de scripts o knex e o nodemon
+   conforme visto *no exemplo anterior*
 6. Crie uma pasta chamada **src** e dentro dela um arquivo chamado **main.js**
 7. Dê um **npm run knex -- init** na raíz do **projeto** service.
-   Não confundir com a raíz do **repositório**
+   Não confundir com a raíz do **repositório**. Não dar esse comando dentro da
+   pasta src.
+8. Modifique o **src/main.js** para conter o a estrutura básica do serviço
+```javascript
+// src/main.js
+const cfg = require("../knexfile")
+const knex = require("knex")(cfg.development)
+const express = require("express")
+const morgan = require("morgan")
+const bodyParser = require("body-parser")
+
+const app = express()
+
+app.use(morgan("dev"))
+app.use(bodyParser.json())
+
+// Vamos adicionar rotas depois
+
+knex.migrate.latest().then(_ => {
+  app.listen(3000, _ => {
+    console.log("server online")
+  })
+})
+```
 
 Daqui por diante, quando quisermos rodar um projeto javascript, sempre
 digitaremos no console um **npm run dev** e vamos esperar que tudo funcione :-)
@@ -342,26 +372,224 @@ componentes vue que implementa a especificação
 Para instalar, entre no projeto cliente (**se05ep07-client**) e:
 
 ```bash
-npm install vue vue-material --save
+npm install vue vue-material@0.8.1 --save
+npm install vueify --save-dev
 ```
 
-Em seguida, abra o **src/main.js** e faça uso do vue por lá:
+Nota: estamos forçando uma versão específica do *vue-material* porque a mais 
+recente, na época de construção do material, estava com problemas de 
+estabilidade.
+
+### Render function e single file components
+
+Essa dependência **vueify** é uma transformação do browserify que serve para 
+carregarmos componentes especializados do vue.
+
+Para que ele surta efeito, entretanto, precisamos alterar o package.json:
+
+```json
+{
+  "name": "se05ep07-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "budo src/main.js:build.js -o -l"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^15.2.0",
+    "budo": "^11.0.1",
+    "vueify": "^9.4.1"
+  },
+  "dependencies": {
+    "vue": "^2.5.13",
+    "vue-material": "^0.8.1"
+  },
+  "browserify":{
+    "transform":[
+      "vueify"
+    ]
+  }
+}
+```
+
+Devemos criar a seção **"broserify"** e indicar uma lista com todas as 
+transformações que o browserify deve aplicar ao empacotar os scripts.
+
+#### Arquivos .vue
+
+Um arquivo .vue é um arquivo que contém uma seção template, uma seção script e
+uma seção style. Tudo o que é necessário para definirmos um componente.
+
+Na pasta **src** crie um arquivo chamado **hello.vue**:
+
+```html
+<template>
+  <md-layout md-gutter>
+    <md-layout md-gutter></md-layout>
+    <md-layout md-gutter>
+      <md-card md-with-hover>
+        <md-card-header>
+          <div class="md-title">Hello world vue-material</div>
+          <div class="md-subhead">Almighty counter</div>
+        </md-card-header>
+        <md-card-content>
+          {{counter}}
+        </md-card-content>
+        <md-card-actions>
+          <md-button @click="counter++">Action</md-button>
+        </md-card-actions>
+      </md-card>
+    </md-layout>
+    <md-layout md-gutter></md-layout>
+  </md-layout>
+</template>
+<script>
+module.exports = {
+  name: "HelloVue",
+  data: _ => ({ counter: 0 })
+};
+</script>
+<style>
+
+</style>
+```
+
+Em seguida, abra o **src/main.js** e faça uso do componente vue por lá:
+
+```javascript
+// // main.js
+// const foo = require("./mymodule1")
+// const bar = require("./anothermodule").bar
+
+// foo(2)
+// console.log(bar(3))
+
+// alert("hello from browserify")// alert só é válido no browser
+const Vue = require("vue")
+const VueMaterial = require("vue-material")
+
+Vue.use(VueMaterial)
+
+Vue.component("hello-vue", require("./hello.vue"))
+
+new Vue({
+  el: "#mountpoint",
+  render: r => r("hello-vue")
+})
+```
+
+O resultado será parecido com este:
+
+![vue-material-sem-css](img/vue/vue-material-sem-css.png)
+
+O que aconteceu?
+
+Se você disser "esquecemos o css", disse certo!
+
+#### browserify-css
+
+Assim como o vueify é necessário para carregarmos arquivos .vue, o 
+**browserify-css** é necessário para carregarmos os arquivos css.
+
+Instale a dependência de desenvolvimento:
+
+```bash
+npm install browserify-css --save-dev
+```
+
+Em seguida modifique a seção **transform** do browserify:
+
+```json
+{
+  "name": "se05ep07-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "budo src/main.js:build.js -o -l"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^15.2.0",
+    "browserify-css": "^0.14.0",
+    "budo": "^11.0.1",
+    "vueify": "^9.4.1"
+  },
+  "dependencies": {
+    "vue": "^2.5.13",
+    "vue-material": "^0.8.1"
+  },
+  "browserify": {
+    "transform": [
+      "vueify",
+      "browserify-css"
+    ]
+  }
+}
+```
+
+Crie agora dentro de **src** do projeto client um arquivo chamado **main.css**:
+
+```css
+/* main.css */
+@import "../node_modules/vue-material/dist/vue-material.css";
+```
+
+Por fim, dê **require** no css do vue-material lá no **main.js**:
 
 ```javascript
 // main.js
+require("./main.css")
+const Vue = require("vue")
+const VueMaterial = require("vue-material")
+
+Vue.use(VueMaterial)
+
+Vue.component("hello-vue", require("./hello.vue"))
+
+new Vue({
+  el: "#mountpoint",
+  render: r => r("hello-vue")
+})
+```
+
+O resultado deve parecer com este aqui:
+
+![vue-material-com-css](img/vue/vue-material-com-css.png)
+
+#### Render function
+
+A render function passou bem discreta ali dentro da definição do view-model.
+
+É ela quem pega os três pedaços distintos dos arquivos .vue e transforma em
+conteúdo HML normal. É ela quem encontra um `<md-button>` e busca o componente
+vue que define isso.
+
+Vários outros frameworks possuem o conceito de render function.
+
+Você pode passar como argumento tanto o nome de um componente registrado quanto
+um *require* para um. o main.js também funciona assim:
+
+```javascript
+// main.js
+require("./main.css")
 const Vue = require("vue")
 const VueMaterial = require("vue-material")
 
 Vue.use(VueMaterial)
 
 new Vue({
-  el:"#mountpoint"
+  el: "#mountpoint",
+  render: r => r(require("./hello.vue"))
 })
 ```
-
 
 ## Exercício protótipo fullstack
 
 ## Projeto client-side com SPA (single page application)
-
-## Render function e single file components
