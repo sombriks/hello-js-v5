@@ -546,6 +546,9 @@ Crie agora dentro de **src** do projeto client um arquivo chamado **main.css**:
 ```css
 /* main.css */
 @import "../node_modules/vue-material/dist/vue-material.css";
+/*
+ você pode definir seus estilos css aqui também.
+*/
 ```
 
 Por fim, dê **require** no css do vue-material lá no **main.js**:
@@ -797,7 +800,8 @@ Você pode visitar o componente em
 Os dois componentes fazem uso de rotas que não definimos ainda no nosso serviço.
 
 Como este serviço é mais elaborado (festas, convidados, convites!), vamos 
-organizar o serviço também.
+organizar o serviço também, faremos uso de um recurso bem interessante do 
+express: o [express.Router](http://expressjs.com/pt-br/api.html#express.router).
 
 Crie no projeto **se05ep07-service** um módulo chamado **festa.js** dentro da
 pasta **src**:
@@ -807,16 +811,189 @@ pasta **src**:
 const express = require("express")
 // crie um módulo pra fazermos a configuração do knex apenas uma vez
 const knex = require("./config").knex
+const oncatch = require("./config").oncatch
 
 const router = express.Router()
 
-router.get("/list")
+router.get("/list", (req,res) => 
+  knex("festa").select().then(ret => 
+    res.send(ret)).catch(oncatch(res)))
+
+router.post("/save", (req,res) => 
+  knex("festa").insert(req.body,"idfesta").then(ret => 
+    res.send(ret)).catch(oncatch(res)))
 
 exports.router = router
-
-
 ``` 
 
+Em seguida, modifique o seu **main.js** para usar esse router publicado:
+
+```javascript
+// src/main.js
+const knex = require("./config").knex // e esse config?
+const express = require("express")
+const morgan = require("morgan")
+const bodyParser = require("body-parser")
+const cors = require("cors")
+
+const app = express()
+
+app.use(cors())
+app.use(morgan("dev"))
+app.use(bodyParser.json())
+
+app.use("/festa",require("./festa").router)
+// exercício: crie o convidado.js pra dar require aqui
+
+knex.migrate.latest().then(_ => {
+  app.listen(3000, _ => {
+    console.log("server online")
+  })
+}) 
+``` 
+
+Abaixo um **config.js** para comparar com o que você criou:
+
+```javascript
+// src/config.js
+const cfg = require("../knexfile")
+const knex = require("knex")(cfg.development)
+
+const oncatch = res => err => {
+  res.status(500).send(err)
+  console.log(err)
+}
+
+exports.knex = knex
+exports.oncatch = oncatch 
+``` 
+
+Como os **Routers** ficam compostos com as URI's do script principal, podemos 
+visitar o caminho que lista as festas em http://127.0.0.1:300/festa/list (isso, 
+claro, quando resolvermos o resto do server-side!).
+
+Não definimos nossas tabelas ainda!
+
+crie dois migrates: um chamado **esquema_inicial** e outro chamado 
+**carga_inicial**:
+
+Nota: antes de criar os migrates, **mate o nodemon**. Caso contrário, ele 
+tentará rodar os migrates vazios *e ele vai conseguir*.
+
+```bash
+npm run knex -- migrate:make esquema_inicial
+npm run knex -- migrate:make carga_inicial
+```
+
+Nosso esquema inicial segue:
+
+```javascript
+// migrations/20180203002842_esquema_inicial.js
+exports.up = knex => knex.schema.createTable("festa", tb => {
+  tb.increments("idfesta")
+  tb.string("nomefesta").notNullable()
+}).createTable("convidado", tb => {
+  tb.increments("idconvidado")
+  tb.string("nomeconvidado").notNullable()
+}).createTable("convite", tb => {
+  tb.integer("idfesta").notNullable()
+    .references("festa.idfesta").onDelete("cascade")
+  tb.integer("idconvidado").notNullable()
+    .references("convidado.idconvidado").onDelete("cascade")
+  tb.primary(["idfesta", "idconvidado"])
+})
+
+exports.down = knex => knex.schema
+  .dropTable("convite")
+  .dropTable("convidado")
+  .dropTable("festa")
+```
+
+Exercício: procure na documentação do knex o que é esse **.onDelete**
+
+O script de carga inicial vai colocar alguns convidados em algumas festas.
+
+```javascript
+// 20180203002844_carga_inicial.js
+const festas = [
+  { idfesta: 1, nomefesta: "forró na praia" },
+  { idfesta: 2, nomefesta: "sertanejo na boate" },
+  { idfesta: 3, nomefesta: "gafieira no bar" }
+]
+
+const convidados = [
+  { idconvidado: 1, nomeconvidado: "Joana" },
+  { idconvidado: 2, nomeconvidado: "Carlos" },
+  { idconvidado: 3, nomeconvidado: "Francisco" }
+]
+
+const convites = [
+  { idfesta: 1, idconvidado: 1 },
+  { idfesta: 3, idconvidado: 1 },
+  { idfesta: 1, idconvidado: 3 },
+  { idfesta: 3, idconvidado: 3 },
+  { idfesta: 2, idconvidado: 3 },
+  { idfesta: 2, idconvidado: 2 }
+]
+
+exports.up = knex => knex("festa").insert(festas)
+  .then(_ => {
+    return knex("convidado").insert(convidados)
+  }).then(_ => {
+    return knex("convite").insert(convites)
+  })
+
+exports.down = knex => knex("festa").del()
+  .whereIn("idfesta", festas.map(e => e.idfesta))
+  .then(_ => {
+    return knex("convidado").del()
+      .whereIn("idconvidado", convidados.map(e => e.idconvidado))
+  })
+```
+
+Contemple a estrutura parcial da sua solução fullstack!
+
+![megaman](img/megaman.webp)
+*imagem completamente ilegal*
+
+```bash
+[sombriks@ramza hello-js-se05-ep07]$ tree -I node_modules
+.
+├── se05ep07-client
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   └── src
+│       ├── anothermodule.js
+│       ├── criar-festa.vue
+│       ├── hello.vue
+│       ├── lista-festas.vue
+│       ├── main.css
+│       ├── main.js
+│       ├── mymodule1.js
+│       └── spa.vue
+└── se05ep07-service
+    ├── dev.sqlite3
+    ├── knexfile.js
+    ├── migrations
+    │   ├── 20180203002842_esquema_inicial.js
+    │   └── 20180203002844_carga_inicial.js
+    ├── package.json
+    ├── package-lock.json
+    └── src
+        ├── config.js
+        ├── festa.js
+        └── main.js
+
+5 directories, 20 files
+```
 
 ## Exercício protótipo fullstack
 
+1. No projeto **se05ep07-service**, crie o **convidado.js** para listar e 
+   salvar convidados do mesmo modo que o **festa.js** (i.e. usar Router)
+2. Criar no projeto client-side a rota **/lista-convidados** (i.e. mapear na 
+   spa, criar componente, consultar os convidados com axios e montar uma lista)
+3. Criar no client-side a rota **/criar-convidado** (you got it).
+
+O exercício é menor porque o próximo é mais extenso.
