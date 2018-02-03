@@ -504,4 +504,10 @@ Nas situações onde é preciso atuar com uma equipe reduzida, ele deve buscar n
 ampla seara de tecnologias que domina o melhor caminho para entregar uma 
 solução de qualidade e de bom custo/benefício.
 
+Como mensagem final, fica o vídeo inspiracional abaixo, em espcial porque tem 
+dicas de como sobreviver no mundo profissional sendo um freelancer. Mas a regra
+se aplica em diversos cenários.
+
+No mais, até mais! :rocket:
+
 [Faça boa arte](https://www.youtube.com/embed/nS-u4MBGSFs)
