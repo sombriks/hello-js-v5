@@ -655,8 +655,8 @@ module.exports = {
   name: "Spa",
   router: new VueRouter({
     routes: [
-      { path: "/lista-festas", component: require("lista-festas.vue") },
-      { path: "/criar-festa", component: require("criar-festa.vue") }
+      { path: "/lista-festas", component: require("./lista-festas.vue") },
+      { path: "/criar-festa", component: require("./criar-festa.vue") }
     ]
   })
 };
