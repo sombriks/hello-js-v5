@@ -343,26 +343,26 @@ const err = res => err => res.status(500).send(err)
 
 app.get("/listapessoas", (req, res) => {
   knex("pessoa").select()
-    .then(ret => res.send(ret)).catch(err)
+    .then(ret => res.send(ret)).catch(err(res))
 })
 app.get("/:idpessoa", (req, res) => {
   const idpessoa = req.params.idpessoa
   knex("pessoa").select().where({ idpessoa })
-    .then(([pessoa]) => res.send(pessoa)).catch(err)
+    .then(([pessoa]) => res.send(pessoa)).catch(err(res))
 })
 app.post("/save", (req, res) => {
   knex("pessoa").insert(req.body, "idpessoa")
-    .then(ret => res.send(ret)).catch(err)
+    .then(ret => res.send(ret)).catch(err(res))
 })
 app.put("/save", (req, res) => {
   const idpessoa = req.body.idpessoa
   knex("pessoa").update(req.body).where({ idpessoa })
-    .then(ret => res.send(ret)).catch(err)
+    .then(ret => res.send(ret)).catch(err(res))
 })
 app.delete("/:idpessoa", (req, res) => {
   const idpessoa = req.params.idpessoa
   knex("pessoa").del().where({ idpessoa })
-    .then(ret => res.send(ret)).catch(err)
+    .then(ret => res.send(ret)).catch(err(res))
 })
 
 knex.migrate.latest()
