@@ -382,7 +382,7 @@ Nota: estamos forçando uma versão específica do *vue-material* porque a mais
 recente, na época de construção do material, estava com problemas de 
 estabilidade.
 
-### Render function e single file components
+## Render function e single file components
 
 Essa dependência **vueify** é uma transformação do browserify que serve para 
 carregarmos componentes especializados do vue.

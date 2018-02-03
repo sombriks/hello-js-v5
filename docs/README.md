@@ -79,12 +79,12 @@ habilidades exercitadas nas partes 1 e 2 serão requisitadas. E por aí vai.
   - Budo e nodemon
   - vue-material
   - Render function e single file components
-  - Exercício protótipo fullstack
   - Projeto client-side com SPA (single page application)
+  - Exercício protótipo fullstack
 - [Parte 8](/parte-8) (4h)  
-  - Exercício SFC + SPA com backend express+knex
   - Conceitos de desenvolvimento fullstack
-  - Padrões de projeto em Javascript
   - Boas práticas em projetos Javascript
+  - Padrões de projeto em Javascript
   - Levantamento de requisitos
   - Ferramentas de acompanhamento de projeto
+  - Exercício SFC + SPA com backend express+knex
