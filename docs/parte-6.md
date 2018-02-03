@@ -339,30 +339,30 @@ app.use(bodyParser.json()) // what's this? what's this?
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static("public"))
 
-const err = res => err => res.status(500).send(err)
+const deuruim = res => error => res.status(500).send(error)
 
 app.get("/listapessoas", (req, res) => {
   knex("pessoa").select()
-    .then(ret => res.send(ret)).catch(err(res))
+    .then(ret => res.send(ret)).catch(deuruim(res))
 })
 app.get("/:idpessoa", (req, res) => {
   const idpessoa = req.params.idpessoa
   knex("pessoa").select().where({ idpessoa })
-    .then(([pessoa]) => res.send(pessoa)).catch(err(res))
+    .then(([pessoa]) => res.send(pessoa)).catch(deuruim(res))
 })
 app.post("/save", (req, res) => {
   knex("pessoa").insert(req.body, "idpessoa")
-    .then(ret => res.send(ret)).catch(err(res))
+    .then(ret => res.send(ret)).catch(deuruim(res))
 })
 app.put("/save", (req, res) => {
   const idpessoa = req.body.idpessoa
   knex("pessoa").update(req.body).where({ idpessoa })
-    .then(ret => res.send(ret)).catch(err(res))
+    .then(ret => res.send(ret)).catch(deuruim(res))
 })
 app.delete("/:idpessoa", (req, res) => {
   const idpessoa = req.params.idpessoa
   knex("pessoa").del().where({ idpessoa })
-    .then(ret => res.send(ret)).catch(err(res))
+    .then(ret => res.send(ret)).catch(deuruim(res))
 })
 
 knex.migrate.latest()
