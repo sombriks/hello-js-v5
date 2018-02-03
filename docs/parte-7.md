@@ -769,7 +769,7 @@ module.exports = {
         .post("/festa/save", this.festa)
         .then(ret => {
           if (ret.status != 200) throw ret;
-          this.festas = ret.data;
+          this.festa = ret.data;
           this.$router.push("/lista-festas")
         })
         .catch(err => {
