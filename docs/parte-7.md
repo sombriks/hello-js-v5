@@ -708,7 +708,7 @@ Nas rotas do *spa.vue* indicamos dois componentes. Vamos criar os dois:
 <script>
 const axios = require("axios");
 const api = axios.create({
-  baseURL: "htto://127.0.0.1:3000"
+  baseURL: "http://127.0.0.1:3000"
 });
 module.exports = {
   name: "ListaFestas",
@@ -745,6 +745,8 @@ module.exports = {
 ```html
 <template>
   <form @submit.prevent="dosave">
+  
+    <!-- criar-festa.vue -->
     <md-input-container>
       <label>Nome da festa</label>
       <md-input v-model="festa.nomefesta" required></md-input>
@@ -756,7 +758,7 @@ module.exports = {
 <script>
 const axios = require("axios");
 const api = axios.create({
-  baseURL: "htto://127.0.0.1:3000"
+  baseURL: "http://127.0.0.1:3000"
 });
 module.exports = {
   name: "CriarFesta",
@@ -869,7 +871,7 @@ exports.oncatch = oncatch
 ``` 
 
 Como os **Routers** ficam compostos com as URI's do script principal, podemos 
-visitar o caminho que lista as festas em http://127.0.0.1:300/festa/list (isso, 
+visitar o caminho que lista as festas em http://127.0.0.1:3000/festa/list (isso, 
 claro, quando resolvermos o resto do server-side!).
 
 Não definimos nossas tabelas ainda!
