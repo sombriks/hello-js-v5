@@ -1,94 +1,107 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <link
-      rel="icon"
-      type="image/png"
-      href="img/hello-js.svg.png"
-    />
-    <meta charset="utf-8">
-    <meta
-      http-equiv="X-UA-Compatible"
-      content="IE=edge"
-    />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
-    />
-    <title>Hello JS V5</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/docute@3/dist/docute.css"
-    >
-  </head>
+<head>
+  <link rel="icon" type="image/png" href="img/hello-js.svg.png" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+  <title>Hello JS V5</title>
+  <link rel="stylesheet" href="https://unpkg.com/docute@3/dist/docute.css">
+</head>
 
-  <body>
-    <div id="app"></div>
-    <script src="https://unpkg.com/docute@3/dist/docute.js"></script>
-    <script src="https://unpkg.com/prismjs@1.10.0/components/prism-sql.js"></script>
-    <script src="https://unpkg.com/docute/plugins/disqus.js"></script>
-    <script src="https://unpkg.com/docute-emojify"></script>
-    <script src="https://unpkg.com/docute-iframe"></script>
-    <script>
-      docute.init({
-        mode: "history",
-        nav: [
-          { title: "Início", path: "/" },
-          {
-            title: "Módulos", type: "dropdown", items: [
-              { title: "Parte 1", path: "/parte-1" },
-              { title: "Parte 2", path: "/parte-2" },
-              { title: "Parte 3", path: "/parte-3" },
-              { title: "Parte 4", path: "/parte-4" },
-              { title: "Parte 5", path: "/parte-5" },
-              { title: "Parte 6", path: "/parte-6" },
-              { title: "Parte 7", path: "/parte-7" },
-              { title: "Parte 8", path: "/parte-8" },
-            ]
-          }
-        ],
-        icons: [
-          {
-            icon: 'twitter',
-            label: 'Sombriks',
-            link: 'https://twitter.com/sombriks'
-          },
-          {
-            icon: 'twitter',
-            label: 'Yuri',
-            link: 'https://twitter.com/yuriploc'
-          },
-          {
-            icon: 'github',
-            label: 'Contribute on GitHub',
-            link: 'https://github.com/sombriks/hello-js-v5'
-          }
-        ],
-        plugins: [
-          disqus({
-            shortname: "https-sombriks-github-io-hello-js-v5"
-          }),
-          docuteEmojify(),
-          docuteIframe()
-        ]
-      })
-    </script>
-    <!-- Google Analytics -->
-    <script>
-      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
-      ga('create', 'UA-37990292-21', 'auto');
+<body>
+  <div id="app"></div>
+  <script src="https://unpkg.com/docute@3/dist/docute.js"></script>
+  <!-- <script src="https://unpkg.com/docute@4/plugins/disqus.js"></script> -->
+  <script src="https://unpkg.com/docute-emojify"></script>
+  <script src="https://unpkg.com/docute-iframe"></script>
+  <script src="https://unpkg.com/prismjs@1.10.0/components/prism-sql.js"></script>
+  <script>
+    docute.init({
+      mode: "history",
+      nav: [{
+          title: "Início",
+          path: "/"
+        },
+        {
+          title: "Módulos",
+          type: "dropdown",
+          items: [{
+              title: "Parte 1",
+              path: "/parte-1"
+            },
+            {
+              title: "Parte 2",
+              path: "/parte-2"
+            },
+            {
+              title: "Parte 3",
+              path: "/parte-3"
+            },
+            {
+              title: "Parte 4",
+              path: "/parte-4"
+            },
+            {
+              title: "Parte 5",
+              path: "/parte-5"
+            },
+            {
+              title: "Parte 6",
+              path: "/parte-6"
+            },
+            {
+              title: "Parte 7",
+              path: "/parte-7"
+            },
+            {
+              title: "Parte 8",
+              path: "/parte-8"
+            },
+          ]
+        }
+      ],
+      icons: [{
+          icon: 'twitter',
+          label: 'Sombriks',
+          link: 'https://twitter.com/sombriks'
+        },
+        {
+          icon: 'twitter',
+          label: 'Yuri',
+          link: 'https://twitter.com/yuriploc'
+        },
+        {
+          icon: 'github',
+          label: 'Contribute on GitHub',
+          link: 'https://github.com/sombriks/hello-js-v5'
+        }
+      ],
+      plugins: [
+        // disqus({
+        //   shortname: "https-sombriks-github-io-hello-js-v5"
+        // }),
+        docuteEmojify(),
+        docuteIframe()
+      ]
+    })
+  </script>
+  <!-- Google Analytics -->
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-37990292-21', 'auto');
+    ga('send', 'pageview');
+    docute.router.afterEach(function (to) {
+      ga('set', 'page', to.fullPath);
       ga('send', 'pageview');
-      docute.router.afterEach(function (to) {
-        ga('set', 'page', to.fullPath);
-        ga('send', 'pageview');
-      });
-    </script>
-    <script
-      async
-      src='https://www.google-analytics.com/analytics.js'
-    ></script>
-      <!-- End Google Analytics -->
-  </body>
+    });
+  </script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+  <!-- End Google Analytics -->
+</body>
 
 </html>
